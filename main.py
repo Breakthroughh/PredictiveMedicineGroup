@@ -21,14 +21,13 @@ from game import WerewolfGame
 # --- Experiment parameters ---
 
 
-agent_counts = [4,5,6,7,8,9]   # number of agents (with exactly 1 werewolf)
-replicates   = 1           # number of new runs per agent count on each invocation
+agent_counts = [4,5,6,7,8,9]   # number of agents with exactly 1 werewolf
+replicates   = 1           # number of new replicates/runs for each agent count 
 
-# Ensure output directory exists
+
 os.makedirs('pilotTest', exist_ok=True)
 
 for num_agents in agent_counts:
-    # --- detect how many runs already exist for this agent count ---
     pattern = f'pilotTest/game_{num_agents}agents_run*_*.json'
     existing_files = glob.glob(pattern)
     existing_runs = []
@@ -39,7 +38,8 @@ for num_agents in agent_counts:
             existing_runs.append(int(m.group(1)))
     max_run = max(existing_runs) if existing_runs else 0
 
-    # --- run the next `replicates` games, numbering from max_run+1 onward ---
+
+    # Running the actual replicate games
     for offset in range(1, replicates + 1):
         run_idx = max_run + offset
         now = time.strftime('%Y%m%d_%H%M%S')
