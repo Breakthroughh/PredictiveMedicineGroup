@@ -16,86 +16,131 @@ import time
 import os
 import glob
 import re
+import json
+import random
 from game import WerewolfGame
+# Import archetype helpers so we can set wolves to chosen personalities post-init
+from agents import WEREWOLF_ARCHETYPES, get_archetype_prompt
 
 # --- Experiment parameters ---
 
+agent_counts = [5]    # number of agents with exactly 1 werewolf
+replicates_per_archetype = 10  # <-- 10 games per archetype
 
-agent_counts = [6]   # number of agents with exactly 1 werewolf
-replicates   = 1            # number of new replicates/runs for each agent count 
+# How many rounds of discussion happen each day before final tally
+discussion_rounds = 2
 
+# Output folder for this experiment
+output_folder = "twoDiscussion_onewerewolf_varyArchetype"
+os.makedirs(output_folder, exist_ok=True)
 
-os.makedirs('pilotTest', exist_ok=True)
-
-for num_agents in agent_counts:
-    pattern = f'pilotTest/game_{num_agents}agents_run*_*.json'
-    existing_files = glob.glob(pattern)
-    existing_runs = []
-    for path in existing_files:
+def next_run_index(num_agents: int, archetype_name: str) -> int:
+    """
+    Resume-safe: look for existing files for this (agents, archetype) combo
+    and return the next run index.
+    """
+    # Escape regex special chars in archetype for matching
+    safe_arch = re.escape(archetype_name)
+    pattern = f'{output_folder}/game_{num_agents}agents_{discussion_rounds}rounds_{archetype_name}_run*.json'
+    # Glob can't use regex escapes directly, so do a broad glob then filter
+    broad = glob.glob(f'{output_folder}/game_{num_agents}agents_{discussion_rounds}rounds_*_run*.json')
+    run_ids = []
+    for path in broad:
         fname = os.path.basename(path)
-        m = re.search(rf'game_{num_agents}agents_run(\d+)_', fname)
+        # Match exact archetype block
+        m = re.match(rf'^game_{num_agents}agents_{discussion_rounds}rounds_{safe_arch}_run(\d+)\.json$', fname)
         if m:
-            existing_runs.append(int(m.group(1)))
-    max_run = max(existing_runs) if existing_runs else 0
+            run_ids.append(int(m.group(1)))
+    return (max(run_ids) + 1) if run_ids else 1
 
+for archetype_name in WEREWOLF_ARCHETYPES.keys():  # includes "default" baseline
+    print(f"\n[experiment] Archetype: {archetype_name}")
+    for num_agents in agent_counts:
+        start_idx = next_run_index(num_agents, archetype_name)
+        for offset in range(replicates_per_archetype):
+            run_idx = start_idx + offset
 
-    # Running the actual replicate games
-    for offset in range(1, replicates + 1):
-        run_idx = max_run + offset
-        now = time.strftime('%Y%m%d_%H%M%S')
-        game_log = f'pilotTest/game_{num_agents}agents_run{run_idx}_{now}.json'
+            # Initialize game with a temporary log path (we set the final name below)
+            game = WerewolfGame(
+                num_agents=num_agents,
+                num_werewolves=1,
+                log_path=f'{output_folder}/TEMP.json',
+                discussion_rounds=discussion_rounds
+            )
 
-        # Initialize game with log file name
-        game = WerewolfGame(num_agents=num_agents,
-                             num_werewolves=1,
-                             log_path=game_log)
+            # --- Set everyone to default except the werewolf, who gets archetype_name ---
+            for wolf in game.get_alive_werewolves():
+                wolf.archetype = archetype_name
+                wolf.archetype_prompt = get_archetype_prompt(wolf.role, archetype_name)
 
-        print(f"\n=== Starting game with {num_agents} agents (1 werewolf), run {run_idx} ===")
-        print("Assigned Roles:")
-        for agent in game.agents:
-            print(agent)
+            # Build final file name: include archetype; keep it short (no timestamp)
+            wolf_types_str = "_".join(sorted({wolf.archetype for wolf in game.get_alive_werewolves()}))
+            game.log_path = f'{output_folder}/game_{num_agents}agents_{discussion_rounds}rounds_{wolf_types_str}_run{run_idx}.json'
 
-        # Default Day 1 (peaceful)
-        print("\n========================")
-        print("☀️ Day 1 (Peaceful)")
-        print("========================")
-        print("No one was eliminated. The village enjoys a peaceful first day.")
+            # Initialize metadata WITH the full structure so the game can append events safely
+            try:
+                init_payload = {
+                    "metadata": {
+                        "archetypes": {f"Agent{a.agent_id}": a.archetype for a in game.agents},
+                        "num_agents": num_agents,
+                        "num_werewolves": 1,
+                        "discussion_rounds": discussion_rounds,
+                        "werewolf_archetype": archetype_name,
+                        "roles": {f"Agent{a.agent_id}": a.role for a in game.agents},
+                    },
+                    "events": [],   # crucial to avoid KeyError in night_phase/_append_event
+                    "winner": None
+                }
+                with open(game.log_path, 'w') as f:
+                    json.dump(init_payload, f, indent=2)
+            except Exception as e:
+                print(f"[warn] Could not initialize log file: {e}")
 
-        # Game loop
-        while True:
+            print(f"\n=== Starting game with {num_agents} agents (1 werewolf), {archetype_name}, run {run_idx} ===")
+            print("Assigned Roles (with archetypes):")
+            for agent in game.agents:
+                print(f"{agent}  —  archetype: {agent.archetype}")
+
+            # Default Day 1 (peaceful)
             print("\n========================")
-            print(f"🌙 Night {game.day_count + 1}")
+            print(" DAY 1 (Peaceful)")
             print("========================")
+            print("No one was eliminated. The village enjoys a peaceful first day.")
 
-            victim_id = game.night_phase()
-            if victim_id is not None:
-                print(f"Agent{victim_id} was killed during the night.")
-            else:
-                print("No one was killed during the night.")
+            # Game loop
+            while True:
+                print("\n========================")
+                print(f" NIGHT {game.day_count + 1}")
+                print("========================")
 
-            time.sleep(0.3)
+                victim_id = game.night_phase()
+                if victim_id is not None:
+                    print(f"Agent{victim_id} was killed during the night.")
+                else:
+                    print("No one was killed during the night.")
 
-            print("\n========================")
-            print(f"☀️ Day {game.day_count + 1}")
-            print("========================")
-            eliminated_id, vote_record = game.day_phase()
+                time.sleep(0.3)
 
-            if eliminated_id is not None:
-                print(f"Agent{eliminated_id} was voted out.")
-            else:
-                print("No one was eliminated due to a tie.")
+                print("\n========================")
+                print(f" DAY {game.day_count + 1}")
+                print("========================")
+                eliminated_id, vote_record = game.day_phase()
 
-            print("\n--- Vote Record ---")
-            for voter, votee in vote_record.items():
-                print(f"Agent{voter} voted for: {votee}")
+                if eliminated_id is not None:
+                    print(f"Agent{eliminated_id} was voted out.")
+                else:
+                    print("No one was eliminated due to a tie.")
 
-            time.sleep(0.3)
+                print("\n--- Final Round Vote Record ---")
+                for voter, votee in vote_record.items():
+                    print(f"Agent{voter} voted for: {votee}")
 
-            winner = game.check_win_condition()
-            if winner:
-                print(f"\n🏆 Game Over! {winner.capitalize()} win!")
-                break
+                time.sleep(0.3)
 
-        print(f"\n=== Finished run {run_idx} for {num_agents} agents ===\n")
-        # Small delay to ensure unique timestamps for each log
-        time.sleep(1)
+                winner = game.check_win_condition()
+                if winner:
+                    print(f"\n Game Over! {winner.capitalize()} win!")
+                    break
+
+            print(f"\n=== Finished run {run_idx} for {num_agents} agents ({archetype_name}) ===\n")
+            time.sleep(1)  # ensure file writes complete
