@@ -21,8 +21,8 @@ from game import WerewolfGame
 # --- Experiment parameters ---
 
 
-agent_counts = [4,5,6,7,8,9]   # number of agents with exactly 1 werewolf
-replicates   = 1           # number of new replicates/runs for each agent count 
+agent_counts = [6]   # number of agents with exactly 1 werewolf
+replicates   = 1            # number of new replicates/runs for each agent count 
 
 
 os.makedirs('pilotTest', exist_ok=True)
