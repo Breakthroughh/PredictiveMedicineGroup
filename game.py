@@ -1,5 +1,5 @@
 from agents import Agent
-from gemini_wrapper import gemini_respond, extract_vote, create_agent_chat
+from gemini_wrapper import gemini_respond, extract_vote, create_agent_chat, gemini_vote_with_reason, gemini_rate_agents
 import random
 import time
 import os
@@ -100,99 +100,239 @@ class WerewolfGame:
     def get_alive_villagers(self):
         return [a for a in self.get_alive_agents() if a.role == "villager"]
 
+    # -------------------- NEW: helpers to collect snapshots (daytime) -----------------------
+
+    def _collect_vote_snapshot(self, stage: str, rnd: int, memory: str):
+        """
+        Collect explicit vote+reason for all alive agents at a given stage ('pre'/'post') and round.
+        Stores a single aggregated event with all agents' votes & reasons.
+        """
+        alive = self.get_alive_agents()
+        record = {}
+        for agent in alive:
+            style = agent.get_style_instructions()
+            style_block = f"\nSTYLE INSTRUCTIONS:\n{style}\n" if style else ""
+            header = (
+                f"[{stage.upper()}-ROUND VOTE SNAPSHOT — Round {rnd}]\n"
+                "Give a short justification (1–3 sentences) for your vote RIGHT NOW, "
+                "based on current information. Then end with one vote line.\n"
+                "Do NOT reveal your role."
+                f"{style_block}"
+            )
+            resp = gemini_vote_with_reason(agent.chat, agent.agent_id, agent.role, memory, header)
+            vote = extract_vote(resp)
+            record[f"Agent{agent.agent_id}"] = {
+                "vote": (f"Agent{vote}" if vote is not None else None),
+                "reason": resp
+            }
+
+        self._append_event({
+            "timestamp": datetime.now().isoformat(),
+            "phase": "day",
+            "day": self.day_count,
+            "round": rnd,
+            "event_type": f"{stage}_vote_round",
+            "by_agent": record,
+            "agents_alive": [f"Agent{a.agent_id}" for a in self.get_alive_agents()]
+        })
+
+    def _collect_inter_agent_ratings(self, stage: str, rnd: int, memory: str):
+        """
+        Ask each alive agent to rate all other alive agents on:
+        - truthfulness, trustworthiness, influence, suspicion ∈ [-10,10]
+        Stores both per-rater events and an aggregated matrix snapshot event.
+        """
+        alive = self.get_alive_agents()
+        alive_ids = [a.agent_id for a in alive]
+
+        matrix = {}
+        for agent in alive:
+            ratings = gemini_rate_agents(agent.chat, agent.agent_id, agent.role, memory, alive_ids)
+            # Persist per-rater event
+            self._append_event({
+                "timestamp": datetime.now().isoformat(),
+                "phase": "day",
+                "day": self.day_count,
+                "round": rnd,
+                "event_type": "inter_agent_ratings",
+                "stage": stage,  # 'pre' or 'post'
+                "rater": f"Agent{agent.agent_id}",
+                "ratings": ratings,  # {AgentK: {t,t,i,s}}
+                "agents_alive": [f"Agent{a.agent_id}" for a in self.get_alive_agents()]
+            })
+            matrix[f"Agent{agent.agent_id}"] = ratings
+
+        # Also store an aggregated matrix snapshot at this timepoint (for convenience)
+        self._append_event({
+            "timestamp": datetime.now().isoformat(),
+            "phase": "day",
+            "day": self.day_count,
+            "round": rnd,
+            "event_type": "inter_agent_ratings_snapshot",
+            "stage": stage,
+            "matrix": matrix,   # {AgentX: {AgentY: {...}}}
+            "agents_alive": [f"Agent{a.agent_id}" for a in self.get_alive_agents()]
+        })
+
+    # ------------------------------------------------------------------------------
+
     def night_phase(self):
+        """
+        NIGHT now has a private werewolf discussion with 2 rounds.
+        - Only werewolves participate.
+        - No inter-agent ratings at night.
+        - After Round 2, wolves' FINAL (round-2) votes choose a single victim (plurality).
+        """
         self.day_count += 1
         werewolves = self.get_alive_werewolves()
         candidates = [a for a in self.get_alive_agents() if a.role != "werewolf"]
         if not candidates:
             return None
 
-        NIGHT1_PROMPT = (
-            "It's Night 1. No discussions or accusations have occurred yet. "
-            "You are a werewolf. Your main objective is to win the game by eliminating all villagers while making sure you and your fellow werewolves do not get suspected or voted out. "
-            "You must always choose a target to eliminate unless you have a very strong reason not to. Voting 'NOONE' should be extremely rare and must be justified. "
-            "Never use phrases like 'If I were a werewolf...' or anything that hints at your true role. Always speak and justify your actions as if you are a villager. "
-            "Pick a random villager to eliminate tonight. You can justify your choice using their agent ID or name. "
-            "Do NOT reference any discussion or suspicion, as none has happened yet. "
-            "Be strategic: never reveal your identity as a werewolf, and make your reasoning sound like a villager. "
-            "At the end, write only one final line like: 'VOTE: Agent3' or 'VOTE: NOONE' "
-            "REMEMBER: Your response will be shared publicly. Do NOT reveal that you are a werewolf."
-        )
-        NIGHT_PROMPT = (
-            "Who should the werewolves kill tonight? Your main objective is to win by eliminating all villagers while making sure you and your fellow werewolves do not get suspected or voted out. "
-            "You must always choose a target to eliminate unless you have a very strong reason not to. Voting 'NOONE' should be extremely rare and must be justified. "
-            "Never use phrases like 'If I were a werewolf...' or anything that hints at your true role. Always speak and justify your actions as if you are a villager. "
-            "Consider everyone who is still alive, what the villagers have discussed and what they suspect. Justify your answer in a way that does not arouse suspicion. "
-            "Be strategic: never reveal your identity as a werewolf, and make your reasoning sound like a villager. "
-            "At the end, write only one final line like: 'VOTE: Agent3' or 'VOTE: NOONE' "
-            "REMEMBER: Your response will be shared publicly. Do NOT reveal that you are a werewolf."
-        )
         print("\n--- Night Phase ---")
         # Compose memory from previous events (for LLM context)
         with open(self.log_path, 'r') as f:
             data = json.load(f)
-        memory = self._compose_memory(data["events"], role="werewolf")
+        memory_for_wolves = self._compose_memory(data["events"], role="werewolf")
+
         alive_agents = self.get_alive_agents()
         alive_info = ", ".join([f"Agent{a.agent_id}" for a in alive_agents])
         alive_context = f"Currently alive agents: {alive_info}."
-        votes = []
-        for wolf in werewolves:
-            # Style add-on for this agent (archetype)
-            style = wolf.get_style_instructions()
-            style_block = f"\nSTYLE INSTRUCTIONS:\n{style}\n" if style else ""
 
-            if self.day_count == 1:
-                agent_ids = [a.agent_id for a in alive_agents if a.agent_id != wolf.agent_id]
-                agent_id_range = f"{min(agent_ids)} to {max(agent_ids)}"
-                NIGHT1_PROMPT = (
-                    f"It's Night 1. No discussions or accusations have occurred yet. "
-                    f"You are Agent{wolf.agent_id}. There are {len(self.agents)} agents: Agent0 to Agent{len(self.agents)-1}. "
-                    f"You are a werewolf. Your main objective is to win the game by eliminating all villagers while making sure you and your fellow werewolves do not get suspected or voted out. "
-                    f"You must always choose a target to eliminate unless you have a very strong reason not to. Voting 'NOONE' should be extremely rare and must be justified. "
-                    f"Never use phrases like 'If I were a werewolf...' or anything that hints at your true role. Always speak and justify your actions as if you are a villager. "
-                    f"Pick a random agent to eliminate tonight, but do NOT pick yourself (Agent{wolf.agent_id}). "
-                    f"Valid choices: Agent IDs {agent_id_range}, excluding yourself. "
-                    "You can justify your choice using their agent ID or name. "
-                    "Do NOT reference any discussion or suspicion, as none has happened yet. "
-                    "Be strategic: never reveal your identity as a werewolf, and make your reasoning sound like a villager. "
-                    "At the end, write only one final line like: 'VOTE: Agent3' or 'VOTE: NOONE' "
-                    "REMEMBER: Your response will be shared publicly. Do NOT reveal that you are a werewolf."
+        # ===================== NEW: Werewolf private discussion (2 rounds) =====================
+        wolf_order = list(werewolves)
+        random.shuffle(wolf_order)  # give some variety at night as well
+
+        last_round_votes_counter = {}
+        num_wolf_rounds = 2  # fixed to 2 as requested
+
+        for rnd in range(1, num_wolf_rounds + 1):
+            print(f"\n--- Werewolf Private Discussion Round {rnd}/{num_wolf_rounds} ---")
+            responses = {}
+            # Private context for wolves: list only wolves speaking together
+            wolves_list_str = ", ".join([f"Agent{w.agent_id}" for w in werewolves])
+
+            # Night instructions for wolves (private room)
+            night_discuss_instructions = (
+                f"This is a PRIVATE werewolf-only discussion (Round {rnd} of {num_wolf_rounds}). "
+                "Coordinate subtly. You may speak or remain silent. "
+                "End with exactly one vote line indicating who the werewolves should kill tonight.\n"
+                "IMPORTANT: End with 'VOTE: AgentX' or 'VOTE: NOONE'."
+            )
+
+            for wolf in wolf_order:
+                if not wolf.alive:
+                    continue
+
+                style = wolf.get_style_instructions()
+                style_block = f"\nSTYLE INSTRUCTIONS:\n{style}\n" if style else ""
+
+                # For Night 1, remind that there was no prior discussion
+                if self.day_count == 1:
+                    night_header = (
+                        f"It's Night 1. No DAYTIME discussions have occurred before. "
+                        f"Private werewolf chat only.\n"
+                        f"Werewolves present: {wolves_list_str}.\n"
+                        f"{alive_context}\n"
+                    )
+                else:
+                    night_header = (
+                        f"Werewolves present: {wolves_list_str}.\n"
+                        f"{alive_context}\n"
+                    )
+
+                prompt = (
+                    f"{night_header}"
+                    f"{night_discuss_instructions}"
+                    f"{style_block}\n"
+                    "Speak if helpful, then end with your vote line."
                 )
-                prompt = f"{alive_context}\n{NIGHT1_PROMPT}{style_block}"
-                memory_for_llm = ""
-            else:
-                prompt = f"{alive_context}\n{NIGHT_PROMPT}{style_block}"
-                memory_for_llm = memory
-            response = gemini_respond(wolf.chat, wolf.agent_id, "werewolf", memory_for_llm, prompt)
-            print(f"\U0001f43a Agent{wolf.agent_id} (Werewolf — {wolf.archetype}) says:\n{response}\n")
-            time.sleep(1)
-            vote = extract_vote(response)
-            if vote is not None:
-                votes.append(vote)
+
+                response = gemini_respond(wolf.chat, wolf.agent_id, "werewolf", memory_for_wolves, prompt)
+                print(f"\U0001f43a Agent{wolf.agent_id} (Werewolf — {wolf.archetype}) [Night Round {rnd}] says:\n{response}\n")
+                responses[wolf.agent_id] = response
+                time.sleep(3)
+
+                # Determine if they actually spoke beyond the vote line
+                lines = [line.strip() for line in response.strip().splitlines() if line.strip()]
+                spoke = False
+                if lines:
+                    if len(lines) > 1:
+                        spoke = True
+                    elif not lines[0].upper().startswith("VOTE:"):
+                        spoke = True
+
+                # Log wolf discussion content (private)
+                self._append_event({
+                    "timestamp": datetime.now().isoformat(),
+                    "phase": "night",
+                    "day": self.day_count,
+                    "round": rnd,
+                    "event_type": "wolf_discussion_round",
+                    "actor": f"Agent{wolf.agent_id}",
+                    "content": response if spoke else None,
+                    "spoke": spoke,
+                    "wolves_present": [f"Agent{w.agent_id}" for w in werewolves],
+                    "agents_alive": [f"Agent{a.agent_id}" for a in self.get_alive_agents()],
+                    "archetype": wolf.archetype,
+                })
+
+            # After all wolves speak in this night-round, snapshot their kill-votes for THIS round only
+            vote_record = {}
+            votes_counter = {}
+            for wolf_id, response in responses.items():
+                v = extract_vote(response)
+                vote_record[wolf_id] = f"Agent{v}" if v is not None else "NO VOTE"
+                if v is not None:
+                    votes_counter[v] = votes_counter.get(v, 0) + 1
+
+            # Persist a night-round wolf vote event (private)
+            self._append_event({
+                "timestamp": datetime.now().isoformat(),
+                "phase": "night",
+                "day": self.day_count,
+                "round": rnd,
+                "event_type": "wolf_vote_round",
+                "votes": {f"Agent{k}": v for k, v in vote_record.items()},
+                "wolves_present": [f"Agent{w.agent_id}" for w in werewolves],
+                "agents_alive": [f"Agent{a.agent_id}" for a in self.get_alive_agents()]
+            })
+
+            last_round_votes_counter = votes_counter  # keep only the latest round for the final kill decision
+        # =================== END werewolf private discussion (2 rounds) ===================
+
+        # Decide the NIGHT kill using ONLY the final night round’s wolf votes
+        if not last_round_votes_counter:
+            # If wolves didn't cast a valid final vote, no one dies (rare)
+            return None
+
+        target_id = max(set(last_round_votes_counter.keys()), key=last_round_votes_counter.get)
+        victim = self.agents[target_id]
+        if not victim.alive:
+            return None
+
+        # Log individual kill_vote (legacy; visible only to wolves in memory)
+        for wolf in werewolves:
             self._append_event({
                 "timestamp": datetime.now().isoformat(),
                 "phase": "night",
                 "day": self.day_count,
                 "event_type": "kill_vote",
                 "actor": f"Agent{wolf.agent_id}",
-                "justification": response,
-                "vote": vote,
+                "justification": f"[Private Night Round 2 final preference] VOTE: Agent{target_id}",
+                "vote": target_id,
                 "agents_alive": [f"Agent{a.agent_id}" for a in self.get_alive_agents()],
                 "archetype": wolf.archetype,
             })
-        if not votes:
-            return None
-        target_id = max(set(votes), key=votes.count)
-        victim = self.agents[target_id]
-        if not victim.alive:
-            return None
+
+        # Single kill per night
         victim.alive = False
         event = {
             "timestamp": datetime.now().isoformat(),
             "phase": "night",
             "day": self.day_count,
             "event_type": "kill",
-            "actor": "Werewolves",  # fix: this used to reference the last 'wolf' variable
+            "actor": "Werewolves",
             "target": f"Agent{victim.agent_id}",
             "agents_alive": [f"Agent{a.agent_id}" for a in self.get_alive_agents()]
         }
@@ -223,6 +363,21 @@ class WerewolfGame:
                 if role == "werewolf":
                     # Only werewolves see kill_vote events
                     lines.append(f"Night {e['day']}: {e['actor']} voted to kill Agent{e['vote']}.")
+            # ===== NEW: Werewolf-only memory items =====
+            elif e["event_type"] == "wolf_discussion_round":
+                if role == "werewolf":
+                    rnd = e.get("round")
+                    if e.get("content"):
+                        lines.append(f"[WOLF] Round {rnd} — {e['actor']} says: {e['content']}")
+            elif e["event_type"] == "wolf_vote_round":
+                if role == "werewolf":
+                    rnd = e.get("round")
+                    votes = e.get("votes", {})
+                    # Summarize: AgentX -> choice
+                    if votes:
+                        pretty = ", ".join([f"{k}→{v}" for k, v in votes.items()])
+                        lines.append(f"[WOLF] Night Round {rnd} votes: {pretty}")
+            # ==========================================
             # IMPORTANT: We intentionally do NOT include any daytime vote snapshots
             # ('vote' or 'vote_round') in memory for either role to avoid degenerate
             # herd behavior purely from echoing a tally.
@@ -247,8 +402,18 @@ class WerewolfGame:
         round_vote_records = []  # list of dicts: [{agent_id -> "AgentX" or "NO VOTE"}, ...]
         last_round_votes_counter = {}  # used to decide elimination at the end
 
+        # === NEW: Baseline before any discussion begins (pre-round 1) ===
+        print("\n--- Baseline snapshots BEFORE Round 1 ---")
+        self._collect_vote_snapshot(stage="pre", rnd=1, memory=memory)
+        self._collect_inter_agent_ratings(stage="pre", rnd=1, memory=memory)
+
         for rnd in range(1, self.discussion_rounds + 1):
             print(f"\n--- Discussion Round {rnd}/{self.discussion_rounds} ---")
+
+            # === NEW: Pre snapshot for this round (redundant for rnd=1 but explicit) ===
+            self._collect_vote_snapshot(stage="pre", rnd=rnd, memory=memory)
+            self._collect_inter_agent_ratings(stage="pre", rnd=rnd, memory=memory)
+
             responses = {}
 
             # Round-specific prompt addendum, ensuring every response ends with a vote.
@@ -278,7 +443,7 @@ class WerewolfGame:
                 response = gemini_respond(agent.chat, agent.agent_id, agent.role, memory, prompt)
                 print(f"Agent{agent.agent_id} (Round {rnd} — {agent.role} — {agent.archetype}) says:\n{response}\n")
                 responses[agent.agent_id] = response
-                time.sleep(1)
+                time.sleep(3)
 
                 # Extract vote and whether the agent actually spoke beyond the vote line
                 vote = extract_vote(response)
@@ -325,6 +490,10 @@ class WerewolfGame:
                 "votes": {f"Agent{k}": v for k, v in vote_record.items()},
                 "agents_alive": [f"Agent{a.agent_id}" for a in self.get_alive_agents()]
             })
+
+            # === NEW: Post-round snapshots (explicit vote+reason and ratings) ===
+            self._collect_vote_snapshot(stage="post", rnd=rnd, memory=memory)
+            self._collect_inter_agent_ratings(stage="post", rnd=rnd, memory=memory)
 
             # Update memory for the next round (so round t can reference speeches from round t-1)
             with open(self.log_path, 'r') as f:

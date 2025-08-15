@@ -24,14 +24,16 @@ from agents import WEREWOLF_ARCHETYPES, get_archetype_prompt
 
 # --- Experiment parameters ---
 
-agent_counts = [5]    # number of agents with exactly 1 werewolf
-replicates_per_archetype = 10  # <-- 10 games per archetype
+agent_counts = [7]    # number of agents per game
+num_werewolves = 2    # <-- updated: 2 werewolves
+replicates_per_archetype = 1  # adjust as you like
 
 # How many rounds of discussion happen each day before final tally
 discussion_rounds = 2
 
 # Output folder for this experiment
-output_folder = "twoDiscussion_onewerewolf_varyArchetype"
+# UPDATED: new folder name for 7 agents, 2 werewolves with inter-agent ratings
+output_folder = "twoDiscussion_interAgentRating_7agents_2werewolves_2werewolfDiscussionRounds"
 os.makedirs(output_folder, exist_ok=True)
 
 def next_run_index(num_agents: int, archetype_name: str) -> int:
@@ -63,12 +65,12 @@ for archetype_name in WEREWOLF_ARCHETYPES.keys():  # includes "default" baseline
             # Initialize game with a temporary log path (we set the final name below)
             game = WerewolfGame(
                 num_agents=num_agents,
-                num_werewolves=1,
+                num_werewolves=num_werewolves,   # <-- updated: 2 werewolves
                 log_path=f'{output_folder}/TEMP.json',
                 discussion_rounds=discussion_rounds
             )
 
-            # --- Set everyone to default except the werewolf, who gets archetype_name ---
+            # --- Set everyone to default except the werewolf(s), who get archetype_name ---
             for wolf in game.get_alive_werewolves():
                 wolf.archetype = archetype_name
                 wolf.archetype_prompt = get_archetype_prompt(wolf.role, archetype_name)
@@ -83,7 +85,7 @@ for archetype_name in WEREWOLF_ARCHETYPES.keys():  # includes "default" baseline
                     "metadata": {
                         "archetypes": {f"Agent{a.agent_id}": a.archetype for a in game.agents},
                         "num_agents": num_agents,
-                        "num_werewolves": 1,
+                        "num_werewolves": num_werewolves,  # <-- updated: use variable (2)
                         "discussion_rounds": discussion_rounds,
                         "werewolf_archetype": archetype_name,
                         "roles": {f"Agent{a.agent_id}": a.role for a in game.agents},
@@ -96,7 +98,7 @@ for archetype_name in WEREWOLF_ARCHETYPES.keys():  # includes "default" baseline
             except Exception as e:
                 print(f"[warn] Could not initialize log file: {e}")
 
-            print(f"\n=== Starting game with {num_agents} agents (1 werewolf), {archetype_name}, run {run_idx} ===")
+            print(f"\n=== Starting game with {num_agents} agents ({num_werewolves} werewolves), {archetype_name}, run {run_idx} ===")
             print("Assigned Roles (with archetypes):")
             for agent in game.agents:
                 print(f"{agent}  —  archetype: {agent.archetype}")
