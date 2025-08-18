@@ -3,11 +3,12 @@
 
 from typing import Optional
 
-# ---- Archetype prompt libraries ------------------------------------------------
-# We expose 9 archetypes for each role + a "default" that adds nothing.
-# These strings are appended to the existing prompts at inference time.
-# Keep them concise and directive so the LLM actually varies behavior.
 
+"""
+Stored here are 9 archetypes for each role + a "default" that adds nothing.
+These strings are appended to the existing prompts at inference time.
+Keep them concise and directive so the LLM actually varies behavior.
+"""
 WEREWOLF_ARCHETYPES = {
     "default": "",
     "Silent Hunter": (
@@ -93,7 +94,7 @@ VILLAGER_ARCHETYPES = {
 def get_archetype_prompt(role: str, archetype: str) -> str:
     """
     Returns the style instruction snippet for the given role and archetype.
-    Unknown archetypes fall back to 'default'.
+    Unknown/empty archetypes fall back to 'default'.
     """
     role = role.lower().strip()
     name = (archetype or "default").strip()
@@ -103,17 +104,32 @@ def get_archetype_prompt(role: str, archetype: str) -> str:
 
 
 class Agent:
+    """
+    Represents a single participant in the Werewolf game, with a role, goal, chat session, 
+    and optional behavioural archetype. 
+
+    Attributes:
+        agent_id (int): Numeric identifier for the agent.
+        role (str): Either "villager" or "werewolf".
+        goal (str): High-level description of the agent's win condition.
+        chat: Gemini chat session object for this agent.
+        alive (bool): Whether the agent is still in the game.
+        archetype (str): Name of the behavioral archetype in use.
+        archetype_prompt (str): Style instructions string from the archetype.
+    
+    Methods:
+        __repr__(): String representation showing agent id, status, and role.
+        update_memory(new_info): Append new information to the agent's memory (unused in game logic).
+        get_prompt(day_log): Return a default discussion prompt with current game log context.
+        get_style_instructions(): Return the archetype prompt for this agent.
+    """
     def __init__(self, agent_id: int, role: str, goal: str = "", chat=None,
                  archetype: Optional[str] = "default"):
         self.agent_id = agent_id
-        self.role = role  # 'villager' or 'werewolf'
+        self.role = role
         self.goal = goal
         self.chat = chat
         self.alive = True
-
-        # --- Personality / Archetype ---
-        # Archetype names correspond to keys in the *ARCHETYPES dicts above.
-        # 'default' adds no extra instructions beyond your existing prompts.
         self.archetype = archetype or "default"
         self.archetype_prompt = get_archetype_prompt(self.role, self.archetype)
 

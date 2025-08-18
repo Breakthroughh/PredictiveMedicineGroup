@@ -24,16 +24,15 @@ from agents import WEREWOLF_ARCHETYPES, get_archetype_prompt
 
 # --- Experiment parameters ---
 
-agent_counts = [7]    # number of agents per game
-num_werewolves = 2    # <-- updated: 2 werewolves
+agent_counts = [5]    # number of agents per game
+num_werewolves = 1    # <-- updated: 2 werewolves
 replicates_per_archetype = 1  # adjust as you like
 
 # How many rounds of discussion happen each day before final tally
 discussion_rounds = 2
 
 # Output folder for this experiment
-# UPDATED: new folder name for 7 agents, 2 werewolves with inter-agent ratings
-output_folder = "twoDiscussion_interAgentRating_7agents_2werewolves_2werewolfDiscussionRounds"
+output_folder = "5A_1W_2Discussion_interAgentRating"
 os.makedirs(output_folder, exist_ok=True)
 
 def next_run_index(num_agents: int, archetype_name: str) -> int:
@@ -55,7 +54,7 @@ def next_run_index(num_agents: int, archetype_name: str) -> int:
             run_ids.append(int(m.group(1)))
     return (max(run_ids) + 1) if run_ids else 1
 
-for archetype_name in WEREWOLF_ARCHETYPES.keys():  # includes "default" baseline
+for archetype_name in list(WEREWOLF_ARCHETYPES.keys())[:2]:  # includes "default" baseline
     print(f"\n[experiment] Archetype: {archetype_name}")
     for num_agents in agent_counts:
         start_idx = next_run_index(num_agents, archetype_name)
