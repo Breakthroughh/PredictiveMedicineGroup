@@ -1,0 +1,2462 @@
+{
+  "metadata": {
+    "archetypes": {
+      "Agent0": "default",
+      "Agent1": "default",
+      "Agent2": "default",
+      "Agent3": "default",
+      "Agent4": "default"
+    },
+    "num_agents": 5,
+    "num_werewolves": 1,
+    "discussion_rounds": 2,
+    "werewolf_archetype": "default",
+    "roles": {
+      "Agent0": "villager",
+      "Agent1": "werewolf",
+      "Agent2": "villager",
+      "Agent3": "villager",
+      "Agent4": "villager"
+    },
+    "rng_seed": 8
+  },
+  "events": [
+    {
+      "timestamp": "2025-08-20T12:17:45.775079",
+      "phase": "night",
+      "day": 1,
+      "round": 1,
+      "event_type": "wolf_discussion_round",
+      "actor": "Agent1",
+      "content": "Agent0 seems a bit quiet for the first night. Agent2 was a bit too eager to point fingers yesterday. Let's consider Agent4. They've been very passive, which can sometimes be a wolf tactic to avoid suspicion.\n\nVOTE: Agent4",
+      "spoke": true,
+      "wolves_present": [
+        "Agent1"
+      ],
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3",
+        "Agent4"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:17:45.775815",
+      "phase": "night",
+      "day": 1,
+      "round": 1,
+      "event_type": "wolf_vote_round",
+      "votes": {
+        "Agent1": "Agent4"
+      },
+      "wolves_present": [
+        "Agent1"
+      ],
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3",
+        "Agent4"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:17:50.843841",
+      "phase": "night",
+      "day": 1,
+      "round": 2,
+      "event_type": "wolf_discussion_round",
+      "actor": "Agent1",
+      "content": "Agent4 it is then. They are a good target to remove early, and it might draw suspicion away from us for now.\n\nVOTE: Agent4",
+      "spoke": true,
+      "wolves_present": [
+        "Agent1"
+      ],
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3",
+        "Agent4"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:17:50.845122",
+      "phase": "night",
+      "day": 1,
+      "round": 2,
+      "event_type": "wolf_vote_round",
+      "votes": {
+        "Agent1": "Agent4"
+      },
+      "wolves_present": [
+        "Agent1"
+      ],
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3",
+        "Agent4"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:17:50.846127",
+      "phase": "night",
+      "day": 1,
+      "event_type": "kill_vote",
+      "actor": "Agent1",
+      "justification": "[Private Night Round 2 final preference] VOTE: Agent4",
+      "vote": 4,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3",
+        "Agent4"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:17:50.846780",
+      "phase": "night",
+      "day": 1,
+      "event_type": "kill",
+      "actor": "Werewolves",
+      "target": "Agent4",
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:17:59.036143",
+      "phase": "day",
+      "day": 1,
+      "round": 0,
+      "event_type": "seed_accusation_round",
+      "pattern": "left",
+      "order": [
+        "Agent1",
+        "Agent0",
+        "Agent3",
+        "Agent2",
+        "Agent4"
+      ],
+      "pairs": {
+        "Agent0": "Agent3",
+        "Agent1": "Agent0",
+        "Agent2": "Agent1",
+        "Agent3": "Agent2"
+      },
+      "utterances": {
+        "Agent0": "Agent3, your silence during the first night after Agent4's death is quite... telling, wouldn't you agree?",
+        "Agent1": "Agent0, your silence last night was remarkably loud.",
+        "Agent2": "Agent1, your silence after Agent4's demise is rather telling, wouldn't you agree?",
+        "Agent3": "Agent2, are you sure you didn't *accidentally* misplace a sharpened stick last night?"
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:18:03.337480",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent0",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 1.0
+        },
+        "Agent2": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 1.0
+        },
+        "Agent3": {
+          "truthfulness": -5,
+          "trustworthiness": -5,
+          "influence": -2,
+          "suspicion": 1.0
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 0.0 -> 1.0 (because of rule 1: accused Agent0).",
+        "Suspicion score Agent2: 0.0 -> 1.0 (because of rule 1: accused Agent1).",
+        "Suspicion score Agent3: 0.0 -> 1.0 (because of rule 1: accused Agent2)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent3": 0.0,
+        "Agent1": 0.0,
+        "Agent2": 0.0
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 1.0,
+        "Agent2": 1.0,
+        "Agent3": 1.0
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:18:07.963528",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent1",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 0,
+          "trustworthiness": -2,
+          "influence": -5,
+          "suspicion": 1.0
+        },
+        "Agent2": {
+          "truthfulness": -3,
+          "trustworthiness": -4,
+          "influence": 0,
+          "suspicion": 2.2
+        },
+        "Agent3": {
+          "truthfulness": -5,
+          "trustworthiness": -6,
+          "influence": -3,
+          "suspicion": 1.8
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent0: 0.0 -> 1.0 (because of rule 1: accused Agent3).",
+        "Suspicion score Agent2: 0.0 -> 2.2 (because of rule 1: accused Agent1; and rule 2: accused Agent1 back).",
+        "Suspicion score Agent3: 0.0 -> 1.8 (because of rule 1: accused Agent2; and rule 2: accused Agent2 back)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent0": 0.0,
+        "Agent3": 0.0,
+        "Agent2": 0.0
+      },
+      "rubric_new_suspicion": {
+        "Agent0": 1.0,
+        "Agent2": 2.2,
+        "Agent3": 1.8
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:18:12.379199",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent2",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 1.0
+        },
+        "Agent1": {
+          "truthfulness": -5,
+          "trustworthiness": -5,
+          "influence": -5,
+          "suspicion": 1.0
+        },
+        "Agent3": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 1.0
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent0: 0.0 -> 1.0 (because of rule 1: ritual seed accusation from Agent1).",
+        "Suspicion score Agent1: 0.0 -> 1.0 (because of rule 1: ritual seed accusation from Agent2).",
+        "Suspicion score Agent3: 0.0 -> 1.0 (because of rule 1: ritual seed accusation from Agent0)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent0": 0.0,
+        "Agent3": 0.0,
+        "Agent1": 0.0
+      },
+      "rubric_new_suspicion": {
+        "Agent0": 1.0,
+        "Agent1": 1.0,
+        "Agent3": 1.0
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:18:16.530978",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent3",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 5,
+          "trustworthiness": 4,
+          "influence": 3,
+          "suspicion": 1.0
+        },
+        "Agent1": {
+          "truthfulness": 6,
+          "trustworthiness": 5,
+          "influence": 7,
+          "suspicion": 1.0
+        },
+        "Agent2": {
+          "truthfulness": -5,
+          "trustworthiness": -6,
+          "influence": -4,
+          "suspicion": 1.0
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent0: 0.0 -> 1.0 (because of rule 1: Agent1 accused Agent0).",
+        "Suspicion score Agent1: 0.0 -> 1.0 (because of rule 1: Agent2 accused Agent1).",
+        "Suspicion score Agent2: 0.0 -> 1.0 (because of rule 1: Agent3 accused Agent2)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent0": 0.0,
+        "Agent1": 0.0,
+        "Agent2": 0.0
+      },
+      "rubric_new_suspicion": {
+        "Agent0": 1.0,
+        "Agent1": 1.0,
+        "Agent2": 1.0
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:18:22.893483",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent4",
+      "ratings": {
+        "Agent0": {
+          "suspicion": 1.0
+        },
+        "Agent1": {
+          "suspicion": 1.0
+        },
+        "Agent2": {
+          "suspicion": 1.0
+        },
+        "Agent3": {
+          "suspicion": 1.0
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent0: 0.0 -> 1.0 (because of rule 1: accused by Agent1).",
+        "Suspicion score Agent1: 0.0 -> 1.0 (because of rule 1: accused by Agent2).",
+        "Suspicion score Agent2: 0.0 -> 1.0 (because of rule 1: accused by Agent3).",
+        "Suspicion score Agent3: 0.0 -> 1.0 (because of rule 1: accused by Agent0)."
+      ],
+      "rubric_prev_suspicion": {},
+      "rubric_new_suspicion": {
+        "Agent0": 1.0,
+        "Agent1": 1.0,
+        "Agent2": 1.0,
+        "Agent3": 1.0
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:18:22.895841",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings_snapshot",
+      "stage": "pre",
+      "matrix": {
+        "Agent0": {
+          "Agent1": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 1.0
+          },
+          "Agent2": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 1.0
+          },
+          "Agent3": {
+            "truthfulness": -5,
+            "trustworthiness": -5,
+            "influence": -2,
+            "suspicion": 1.0
+          }
+        },
+        "Agent1": {
+          "Agent0": {
+            "truthfulness": 0,
+            "trustworthiness": -2,
+            "influence": -5,
+            "suspicion": 1.0
+          },
+          "Agent2": {
+            "truthfulness": -3,
+            "trustworthiness": -4,
+            "influence": 0,
+            "suspicion": 2.2
+          },
+          "Agent3": {
+            "truthfulness": -5,
+            "trustworthiness": -6,
+            "influence": -3,
+            "suspicion": 1.8
+          }
+        },
+        "Agent2": {
+          "Agent0": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 1.0
+          },
+          "Agent1": {
+            "truthfulness": -5,
+            "trustworthiness": -5,
+            "influence": -5,
+            "suspicion": 1.0
+          },
+          "Agent3": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 1.0
+          }
+        },
+        "Agent3": {
+          "Agent0": {
+            "truthfulness": 5,
+            "trustworthiness": 4,
+            "influence": 3,
+            "suspicion": 1.0
+          },
+          "Agent1": {
+            "truthfulness": 6,
+            "trustworthiness": 5,
+            "influence": 7,
+            "suspicion": 1.0
+          },
+          "Agent2": {
+            "truthfulness": -5,
+            "trustworthiness": -6,
+            "influence": -4,
+            "suspicion": 1.0
+          }
+        },
+        "Agent4": {
+          "Agent0": {
+            "suspicion": 1.0
+          },
+          "Agent1": {
+            "suspicion": 1.0
+          },
+          "Agent2": {
+            "suspicion": 1.0
+          },
+          "Agent3": {
+            "suspicion": 1.0
+          }
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:18:27.968012",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "discussion_round",
+      "actor": "Agent2",
+      "content": "It's interesting how the ritual pointed fingers all around, isn't it? Given Agent4's demise, I think it's wise to start carefully considering everyone's potential involvement.",
+      "spoke": true,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:18:32.961144",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "discussion_round",
+      "actor": "Agent0",
+      "content": "Well, that ritual seed certainly painted a target on a few backs, didn't it? Let's see if anyone wants to clear the air or just keep pointing fingers.",
+      "spoke": true,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:18:37.902597",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "discussion_round",
+      "actor": "Agent3",
+      "content": "It's quite interesting how the ritual played out, with everyone pointing fingers. Agent4's death is a somber start, and understanding these initial dynamics will be crucial. Let's keep our eyes and ears open.",
+      "spoke": true,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:18:42.922305",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "discussion_round",
+      "actor": "Agent1",
+      "content": "Agent0, you pointed at Agent3. Agent3, you pointed at Agent2. Agent2, you pointed at me. And I pointed at Agent0. Quite the circle of suspicion we have here.",
+      "spoke": true,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:18:47.910614",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent0",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 8,
+          "trustworthiness": 7,
+          "influence": 6,
+          "suspicion": 1.9
+        },
+        "Agent2": {
+          "truthfulness": 7,
+          "trustworthiness": 7,
+          "influence": 5,
+          "suspicion": 1.9
+        },
+        "Agent3": {
+          "truthfulness": 7,
+          "trustworthiness": 6,
+          "influence": 5,
+          "suspicion": 1.9
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 0.9 -> 1.9 (because of rule 1: summarized the ritual accusations).",
+        "Suspicion score Agent2: 0.9 -> 1.9 (because of rule 1: confirmed the ritual's accusatory nature).",
+        "Suspicion score Agent3: 0.9 -> 1.9 (because of rule 1: acknowledged the ritual's pointing fingers)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent1": 0.9,
+        "Agent2": 0.9,
+        "Agent3": 0.9
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 1.9,
+        "Agent2": 1.9,
+        "Agent3": 1.9
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:18:53.295249",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent1",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 3,
+          "trustworthiness": 2,
+          "influence": 4,
+          "suspicion": 1.9
+        },
+        "Agent2": {
+          "truthfulness": 2,
+          "trustworthiness": 1,
+          "influence": 3,
+          "suspicion": 3.0
+        },
+        "Agent3": {
+          "truthfulness": 3,
+          "trustworthiness": 3,
+          "influence": 4,
+          "suspicion": 2.6
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent0: 0.9 -> 1.9 (because of rule 1: Agent2 accused Agent0).",
+        "Suspicion score Agent2: 2.0 -> 3.0 (because of rule 1: Agent3 accused Agent2).",
+        "Suspicion score Agent3: 1.6 -> 2.6 (because of rule 1: Agent0 accused Agent3)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent0": 0.9,
+        "Agent2": 2.0,
+        "Agent3": 1.6
+      },
+      "rubric_new_suspicion": {
+        "Agent0": 1.9,
+        "Agent2": 3.0,
+        "Agent3": 2.6
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:18:57.509239",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent2",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 1,
+          "trustworthiness": 1,
+          "influence": 3,
+          "suspicion": 0.9
+        },
+        "Agent1": {
+          "truthfulness": 3,
+          "trustworthiness": 3,
+          "influence": 3,
+          "suspicion": 1.9
+        },
+        "Agent3": {
+          "truthfulness": 2,
+          "trustworthiness": 2,
+          "influence": 2,
+          "suspicion": 0.9
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent0: 0.9 -> 0.9 (no change).",
+        "Suspicion score Agent1: 0.9 -> 1.9 (because of rule 1: Agent1's statement accurately summarized the ritual accusations, which were already accounted for).",
+        "Suspicion score Agent3: 0.9 -> 0.9 (no change)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent0": 0.9,
+        "Agent1": 0.9,
+        "Agent3": 0.9
+      },
+      "rubric_new_suspicion": {
+        "Agent0": 0.9,
+        "Agent1": 1.9,
+        "Agent3": 0.9
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:19:02.557505",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent3",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 6,
+          "trustworthiness": 5,
+          "influence": 4,
+          "suspicion": 1.9
+        },
+        "Agent1": {
+          "truthfulness": 7,
+          "trustworthiness": 7,
+          "influence": 8,
+          "suspicion": 1.9
+        },
+        "Agent2": {
+          "truthfulness": 5,
+          "trustworthiness": 4,
+          "influence": 3,
+          "suspicion": 1.9
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent0: 0.9 -> 1.9 (because of rule 1: Agent1's statement referenced the ritual accusation against Agent0).",
+        "Suspicion score Agent1: 0.9 -> 1.9 (because of rule 1: Agent2's ritual accusation against Agent1).",
+        "Suspicion score Agent2: 0.9 -> 1.9 (because of rule 1: Agent3's ritual accusation against Agent2)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent0": 0.9,
+        "Agent1": 0.9,
+        "Agent2": 0.9
+      },
+      "rubric_new_suspicion": {
+        "Agent0": 1.9,
+        "Agent1": 1.9,
+        "Agent2": 1.9
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:19:07.385590",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent4",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 1,
+          "suspicion": 1.9
+        },
+        "Agent1": {
+          "truthfulness": 2,
+          "trustworthiness": 2,
+          "influence": 2,
+          "suspicion": 1.9
+        },
+        "Agent2": {
+          "truthfulness": 1,
+          "trustworthiness": 1,
+          "influence": 1,
+          "suspicion": 1.9
+        },
+        "Agent3": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 1,
+          "suspicion": 1.9
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent0: 0.9 -> 1.9 (because of rule 1: confirmed accusation by Agent1).",
+        "Suspicion score Agent1: 0.9 -> 1.9 (because of rule 1: confirmed accusation by Agent0).",
+        "Suspicion score Agent2: 0.9 -> 1.9 (because of rule 1: confirmed accusation by Agent3).",
+        "Suspicion score Agent3: 0.9 -> 1.9 (because of rule 1: confirmed accusation by Agent2)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent0": 0.9,
+        "Agent1": 0.9,
+        "Agent2": 0.9,
+        "Agent3": 0.9
+      },
+      "rubric_new_suspicion": {
+        "Agent0": 1.9,
+        "Agent1": 1.9,
+        "Agent2": 1.9,
+        "Agent3": 1.9
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:19:07.389155",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings_snapshot",
+      "stage": "mid",
+      "matrix": {
+        "Agent0": {
+          "Agent1": {
+            "truthfulness": 8,
+            "trustworthiness": 7,
+            "influence": 6,
+            "suspicion": 1.9
+          },
+          "Agent2": {
+            "truthfulness": 7,
+            "trustworthiness": 7,
+            "influence": 5,
+            "suspicion": 1.9
+          },
+          "Agent3": {
+            "truthfulness": 7,
+            "trustworthiness": 6,
+            "influence": 5,
+            "suspicion": 1.9
+          }
+        },
+        "Agent1": {
+          "Agent0": {
+            "truthfulness": 3,
+            "trustworthiness": 2,
+            "influence": 4,
+            "suspicion": 1.9
+          },
+          "Agent2": {
+            "truthfulness": 2,
+            "trustworthiness": 1,
+            "influence": 3,
+            "suspicion": 3.0
+          },
+          "Agent3": {
+            "truthfulness": 3,
+            "trustworthiness": 3,
+            "influence": 4,
+            "suspicion": 2.6
+          }
+        },
+        "Agent2": {
+          "Agent0": {
+            "truthfulness": 1,
+            "trustworthiness": 1,
+            "influence": 3,
+            "suspicion": 0.9
+          },
+          "Agent1": {
+            "truthfulness": 3,
+            "trustworthiness": 3,
+            "influence": 3,
+            "suspicion": 1.9
+          },
+          "Agent3": {
+            "truthfulness": 2,
+            "trustworthiness": 2,
+            "influence": 2,
+            "suspicion": 0.9
+          }
+        },
+        "Agent3": {
+          "Agent0": {
+            "truthfulness": 6,
+            "trustworthiness": 5,
+            "influence": 4,
+            "suspicion": 1.9
+          },
+          "Agent1": {
+            "truthfulness": 7,
+            "trustworthiness": 7,
+            "influence": 8,
+            "suspicion": 1.9
+          },
+          "Agent2": {
+            "truthfulness": 5,
+            "trustworthiness": 4,
+            "influence": 3,
+            "suspicion": 1.9
+          }
+        },
+        "Agent4": {
+          "Agent0": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 1,
+            "suspicion": 1.9
+          },
+          "Agent1": {
+            "truthfulness": 2,
+            "trustworthiness": 2,
+            "influence": 2,
+            "suspicion": 1.9
+          },
+          "Agent2": {
+            "truthfulness": 1,
+            "trustworthiness": 1,
+            "influence": 1,
+            "suspicion": 1.9
+          },
+          "Agent3": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 1,
+            "suspicion": 1.9
+          }
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:19:12.336875",
+      "phase": "day",
+      "day": 1,
+      "round": 2,
+      "event_type": "discussion_round",
+      "actor": "Agent0",
+      "content": "Agent1, you're the one breaking down the ritual's path. Do you see any particular pattern emerging from that circle, or is it just random chaos?",
+      "spoke": true,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:19:17.284336",
+      "phase": "day",
+      "day": 1,
+      "round": 2,
+      "event_type": "discussion_round",
+      "actor": "Agent2",
+      "content": "Agent1, your summary of the ritual is accurate, but does it serve to obscure rather than clarify who might be responsible for Agent4's death?",
+      "spoke": true,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:19:22.356332",
+      "phase": "day",
+      "day": 1,
+      "round": 2,
+      "event_type": "discussion_round",
+      "actor": "Agent1",
+      "content": "Agent3, you're advocating for careful observation, which is sensible. Agent2, you seem keen on discussing the ritual's implications. Agent0, you're waiting for people to 'clear the air'. We're all just trying to make sense of this.",
+      "spoke": true,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:19:27.339346",
+      "phase": "day",
+      "day": 1,
+      "round": 2,
+      "event_type": "discussion_round",
+      "actor": "Agent3",
+      "content": "Agent1, your summary of the ritual's accusations was quite thorough. Agent3, you echoed my sentiment about observing the dynamics. Agent0, I agree, understanding who wants to clear the air is key.",
+      "spoke": true,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:19:31.917872",
+      "phase": "day",
+      "day": 1,
+      "round": 2,
+      "event_type": "inter_agent_ratings",
+      "stage": "post",
+      "rater": "Agent0",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 9,
+          "trustworthiness": 8,
+          "influence": 7,
+          "suspicion": 2.7
+        },
+        "Agent2": {
+          "truthfulness": 6,
+          "trustworthiness": 5,
+          "influence": 4,
+          "suspicion": 2.7
+        },
+        "Agent3": {
+          "truthfulness": 7,
+          "trustworthiness": 7,
+          "influence": 5,
+          "suspicion": 2.7
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 1.7 -> 2.7 (because of rule 1: was questioned and summarized others).",
+        "Suspicion score Agent2: 1.7 -> 2.7 (because of rule 1: questioned Agent1's summary).",
+        "Suspicion score Agent3: 1.7 -> 2.7 (because of rule 1: agreed with Agent0's sentiment about Agent1)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent1": 1.7,
+        "Agent2": 1.7,
+        "Agent3": 1.7
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 2.7,
+        "Agent2": 2.7,
+        "Agent3": 2.7
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:19:36.440671",
+      "phase": "day",
+      "day": 1,
+      "round": 2,
+      "event_type": "inter_agent_ratings",
+      "stage": "post",
+      "rater": "Agent1",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 3,
+          "trustworthiness": 2,
+          "influence": 4,
+          "suspicion": 2.7
+        },
+        "Agent2": {
+          "truthfulness": 3,
+          "trustworthiness": 3,
+          "influence": 4,
+          "suspicion": 3.7
+        },
+        "Agent3": {
+          "truthfulness": 3,
+          "trustworthiness": 3,
+          "influence": 4,
+          "suspicion": 3.3
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent0: 1.7 -> 2.7 (because of rule 1: Agent2 accused Agent0).",
+        "Suspicion score Agent2: 2.7 -> 3.7 (because of rule 1: Agent0 accused Agent2).",
+        "Suspicion score Agent3: 2.3 -> 3.3 (because of rule 1: Agent1 accused Agent3)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent0": 1.7,
+        "Agent2": 2.7,
+        "Agent3": 2.3
+      },
+      "rubric_new_suspicion": {
+        "Agent0": 2.7,
+        "Agent2": 3.7,
+        "Agent3": 3.3
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:19:42.708300",
+      "phase": "day",
+      "day": 1,
+      "round": 2,
+      "event_type": "inter_agent_ratings",
+      "stage": "post",
+      "rater": "Agent2",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 2,
+          "trustworthiness": 2,
+          "influence": 4,
+          "suspicion": 1.8
+        },
+        "Agent1": {
+          "truthfulness": 3,
+          "trustworthiness": 3,
+          "influence": 5,
+          "suspicion": 1.7
+        },
+        "Agent3": {
+          "truthfulness": 3,
+          "trustworthiness": 3,
+          "influence": 4,
+          "suspicion": 1.8
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent0: 0.8 -> 1.8 (because of rule 1: Agent0's question to Agent1 about patterns can be interpreted as an accusation).",
+        "Suspicion score Agent1: 1.7 -> 1.7 (no change).",
+        "Suspicion score Agent3: 0.8 -> 1.8 (because of rule 1: Agent3's statement reinforcing observation can be interpreted as a subtle accusation towards Agent1)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent0": 0.8,
+        "Agent1": 1.7,
+        "Agent3": 0.8
+      },
+      "rubric_new_suspicion": {
+        "Agent0": 1.8,
+        "Agent1": 1.7,
+        "Agent3": 1.8
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:19:47.356324",
+      "phase": "day",
+      "day": 1,
+      "round": 2,
+      "event_type": "inter_agent_ratings",
+      "stage": "post",
+      "rater": "Agent3",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 6,
+          "trustworthiness": 5,
+          "influence": 4,
+          "suspicion": 2.7
+        },
+        "Agent1": {
+          "truthfulness": 8,
+          "trustworthiness": 7,
+          "influence": 8,
+          "suspicion": 2.7
+        },
+        "Agent2": {
+          "truthfulness": 7,
+          "trustworthiness": 6,
+          "influence": 6,
+          "suspicion": 2.7
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent0: 1.7 -> 2.7 (because of rule 1: Agent1's Round 2 statement implicitly points to Agent0 by addressing their question).",
+        "Suspicion score Agent1: 1.7 -> 2.7 (because of rule 1: Agent0's Round 2 question to Agent1 implies suspicion).",
+        "Suspicion score Agent2: 1.7 -> 2.7 (because of rule 1: Agent1's Round 2 statement implicitly points to Agent2 by addressing their question)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent0": 1.7,
+        "Agent1": 1.7,
+        "Agent2": 1.7
+      },
+      "rubric_new_suspicion": {
+        "Agent0": 2.7,
+        "Agent1": 2.7,
+        "Agent2": 2.7
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:19:52.172847",
+      "phase": "day",
+      "day": 1,
+      "round": 2,
+      "event_type": "inter_agent_ratings",
+      "stage": "post",
+      "rater": "Agent4",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 1,
+          "suspicion": 1.7
+        },
+        "Agent1": {
+          "truthfulness": 2,
+          "trustworthiness": 2,
+          "influence": 2,
+          "suspicion": 2.7
+        },
+        "Agent2": {
+          "truthfulness": 1,
+          "trustworthiness": 1,
+          "influence": 1,
+          "suspicion": 2.7
+        },
+        "Agent3": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 1,
+          "suspicion": 2.7
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent0: 1.7 -> 1.7 (no new accusations or rule triggers).",
+        "Suspicion score Agent1: 1.7 -> 2.7 (because of rule 4: questioned by multiple agents, potentially deflecting).",
+        "Suspicion score Agent2: 1.7 -> 1.7 (no new accusations or rule triggers).",
+        "Suspicion score Agent3: 1.7 -> 1.7 (no new accusations or rule triggers)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent0": 1.7,
+        "Agent1": 1.7,
+        "Agent2": 1.7,
+        "Agent3": 1.7
+      },
+      "rubric_new_suspicion": {
+        "Agent0": 1.7,
+        "Agent1": 2.7,
+        "Agent2": 2.7,
+        "Agent3": 2.7
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:19:52.176922",
+      "phase": "day",
+      "day": 1,
+      "round": 2,
+      "event_type": "inter_agent_ratings_snapshot",
+      "stage": "post",
+      "matrix": {
+        "Agent0": {
+          "Agent1": {
+            "truthfulness": 9,
+            "trustworthiness": 8,
+            "influence": 7,
+            "suspicion": 2.7
+          },
+          "Agent2": {
+            "truthfulness": 6,
+            "trustworthiness": 5,
+            "influence": 4,
+            "suspicion": 2.7
+          },
+          "Agent3": {
+            "truthfulness": 7,
+            "trustworthiness": 7,
+            "influence": 5,
+            "suspicion": 2.7
+          }
+        },
+        "Agent1": {
+          "Agent0": {
+            "truthfulness": 3,
+            "trustworthiness": 2,
+            "influence": 4,
+            "suspicion": 2.7
+          },
+          "Agent2": {
+            "truthfulness": 3,
+            "trustworthiness": 3,
+            "influence": 4,
+            "suspicion": 3.7
+          },
+          "Agent3": {
+            "truthfulness": 3,
+            "trustworthiness": 3,
+            "influence": 4,
+            "suspicion": 3.3
+          }
+        },
+        "Agent2": {
+          "Agent0": {
+            "truthfulness": 2,
+            "trustworthiness": 2,
+            "influence": 4,
+            "suspicion": 1.8
+          },
+          "Agent1": {
+            "truthfulness": 3,
+            "trustworthiness": 3,
+            "influence": 5,
+            "suspicion": 1.7
+          },
+          "Agent3": {
+            "truthfulness": 3,
+            "trustworthiness": 3,
+            "influence": 4,
+            "suspicion": 1.8
+          }
+        },
+        "Agent3": {
+          "Agent0": {
+            "truthfulness": 6,
+            "trustworthiness": 5,
+            "influence": 4,
+            "suspicion": 2.7
+          },
+          "Agent1": {
+            "truthfulness": 8,
+            "trustworthiness": 7,
+            "influence": 8,
+            "suspicion": 2.7
+          },
+          "Agent2": {
+            "truthfulness": 7,
+            "trustworthiness": 6,
+            "influence": 6,
+            "suspicion": 2.7
+          }
+        },
+        "Agent4": {
+          "Agent0": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 1,
+            "suspicion": 1.7
+          },
+          "Agent1": {
+            "truthfulness": 2,
+            "trustworthiness": 2,
+            "influence": 2,
+            "suspicion": 2.7
+          },
+          "Agent2": {
+            "truthfulness": 1,
+            "trustworthiness": 1,
+            "influence": 1,
+            "suspicion": 2.7
+          },
+          "Agent3": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 1,
+            "suspicion": 2.7
+          }
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:19:54.377142",
+      "phase": "day",
+      "day": 1,
+      "event_type": "final_vote_round",
+      "votes": {
+        "Agent0": "Agent2",
+        "Agent1": "Agent2",
+        "Agent2": "Agent1",
+        "Agent3": "Agent2"
+      },
+      "vote_policy": {
+        "villager_policy": "softmax",
+        "softmax_temp": 0.8,
+        "threshold": 2.6,
+        "rng_seed": 8
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:19:54.381398",
+      "phase": "day",
+      "day": 1,
+      "event_type": "elimination",
+      "target": "Agent2",
+      "reason": "Voted out by majority (final vote).",
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:20:00.768445",
+      "phase": "night",
+      "day": 2,
+      "round": 1,
+      "event_type": "wolf_discussion_round",
+      "actor": "Agent1",
+      "content": "Agent2 is gone, which is good. Now we have Agent0 and Agent3 left. Agent0 was accused by the ritual, and Agent3 accused Agent2. Agent3's analysis of my summary of the ritual also felt a bit too keen. Agent0 is still a bit of an unknown quantity. Agent3 seems more actively engaged in trying to parse the game.\n\nVOTE: Agent0",
+      "spoke": true,
+      "wolves_present": [
+        "Agent1"
+      ],
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:20:00.773333",
+      "phase": "night",
+      "day": 2,
+      "round": 1,
+      "event_type": "wolf_vote_round",
+      "votes": {
+        "Agent1": "Agent0"
+      },
+      "wolves_present": [
+        "Agent1"
+      ],
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:20:06.110850",
+      "phase": "night",
+      "day": 2,
+      "round": 2,
+      "event_type": "wolf_discussion_round",
+      "actor": "Agent1",
+      "content": "Agent0 is a bit too quiet. Agent3 is making a show of agreeing with me and observing, which could be a tactic. I still think Agent0 is the safer bet to eliminate to consolidate our position.\n\nVOTE: Agent0",
+      "spoke": true,
+      "wolves_present": [
+        "Agent1"
+      ],
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:20:06.115843",
+      "phase": "night",
+      "day": 2,
+      "round": 2,
+      "event_type": "wolf_vote_round",
+      "votes": {
+        "Agent1": "Agent0"
+      },
+      "wolves_present": [
+        "Agent1"
+      ],
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:20:06.123008",
+      "phase": "night",
+      "day": 2,
+      "event_type": "kill_vote",
+      "actor": "Agent1",
+      "justification": "[Private Night Round 2 final preference] VOTE: Agent0",
+      "vote": 0,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:20:06.126344",
+      "phase": "night",
+      "day": 2,
+      "event_type": "kill",
+      "actor": "Werewolves",
+      "target": "Agent0",
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:20:11.858541",
+      "phase": "day",
+      "day": 2,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent0",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 8,
+          "trustworthiness": 7,
+          "influence": 7,
+          "suspicion": 2.7
+        },
+        "Agent3": {
+          "truthfulness": 8,
+          "trustworthiness": 7,
+          "influence": 6,
+          "suspicion": 2.7
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 2.7 -> 2.7 (no new events triggered rules).",
+        "Suspicion score Agent3: 2.7 -> 2.7 (no new events triggered rules)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent1": 2.7,
+        "Agent2": 2.7,
+        "Agent3": 2.7
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 2.7,
+        "Agent3": 2.7
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:20:16.330951",
+      "phase": "day",
+      "day": 2,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent1",
+      "ratings": {
+        "Agent3": {
+          "truthfulness": 5,
+          "trustworthiness": 5,
+          "influence": 6,
+          "suspicion": 3.3
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent3: 3.3 -> 3.3 (because of no new events)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent3": 3.3
+      },
+      "rubric_new_suspicion": {
+        "Agent3": 3.3
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:20:20.978406",
+      "phase": "day",
+      "day": 2,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent2",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 3,
+          "trustworthiness": 3,
+          "influence": 4,
+          "suspicion": 1.7
+        },
+        "Agent3": {
+          "truthfulness": 3,
+          "trustworthiness": 3,
+          "influence": 4,
+          "suspicion": 1.8
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 1.7 -> 1.7 (no change).",
+        "Suspicion score Agent3: 1.8 -> 1.8 (no change)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent0": 1.8,
+        "Agent1": 1.7,
+        "Agent3": 1.8
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 1.7,
+        "Agent3": 1.8
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:20:25.337601",
+      "phase": "day",
+      "day": 2,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent3",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 8,
+          "trustworthiness": 8,
+          "influence": 9,
+          "suspicion": 2.7
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 2.7 -> 2.7 (because of no new applicable events)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent1": 2.7
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 2.7
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:20:30.337743",
+      "phase": "day",
+      "day": 2,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent4",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 1,
+          "trustworthiness": 1,
+          "influence": 2,
+          "suspicion": 2.7
+        },
+        "Agent3": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 1,
+          "suspicion": 2.7
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 2.7 -> 2.7 (no new accusations or rule triggers).",
+        "Suspicion score Agent3: 2.7 -> 2.7 (no new accusations or rule triggers)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent0": 1.7,
+        "Agent1": 2.7,
+        "Agent2": 2.7,
+        "Agent3": 2.7
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 2.7,
+        "Agent3": 2.7
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:20:30.341363",
+      "phase": "day",
+      "day": 2,
+      "round": 1,
+      "event_type": "inter_agent_ratings_snapshot",
+      "stage": "pre",
+      "matrix": {
+        "Agent0": {
+          "Agent1": {
+            "truthfulness": 8,
+            "trustworthiness": 7,
+            "influence": 7,
+            "suspicion": 2.7
+          },
+          "Agent3": {
+            "truthfulness": 8,
+            "trustworthiness": 7,
+            "influence": 6,
+            "suspicion": 2.7
+          }
+        },
+        "Agent1": {
+          "Agent3": {
+            "truthfulness": 5,
+            "trustworthiness": 5,
+            "influence": 6,
+            "suspicion": 3.3
+          }
+        },
+        "Agent2": {
+          "Agent1": {
+            "truthfulness": 3,
+            "trustworthiness": 3,
+            "influence": 4,
+            "suspicion": 1.7
+          },
+          "Agent3": {
+            "truthfulness": 3,
+            "trustworthiness": 3,
+            "influence": 4,
+            "suspicion": 1.8
+          }
+        },
+        "Agent3": {
+          "Agent1": {
+            "truthfulness": 8,
+            "trustworthiness": 8,
+            "influence": 9,
+            "suspicion": 2.7
+          }
+        },
+        "Agent4": {
+          "Agent1": {
+            "truthfulness": 1,
+            "trustworthiness": 1,
+            "influence": 2,
+            "suspicion": 2.7
+          },
+          "Agent3": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 1,
+            "suspicion": 2.7
+          }
+        }
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:20:35.608176",
+      "phase": "day",
+      "day": 2,
+      "round": 1,
+      "event_type": "discussion_round",
+      "actor": "Agent1",
+      "content": "Agent3, we're the only ones left. Agent0 is gone, and Agent2 was eliminated yesterday. It's just you and me now.",
+      "spoke": true,
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:20:40.744237",
+      "phase": "day",
+      "day": 2,
+      "round": 1,
+      "event_type": "discussion_round",
+      "actor": "Agent3",
+      "content": "Agent1, your analysis of the ritual's implications has been quite insightful. Agent3, your commitment to observation is appreciated. With Agent0 and Agent2 gone, our focus must now be sharp.",
+      "spoke": true,
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:20:45.594257",
+      "phase": "day",
+      "day": 2,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent0",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 9,
+          "trustworthiness": 8,
+          "influence": 7,
+          "suspicion": 2.4
+        },
+        "Agent3": {
+          "truthfulness": 9,
+          "trustworthiness": 8,
+          "influence": 6,
+          "suspicion": 2.4
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 2.4 -> 2.4 (no new events triggered rules).",
+        "Suspicion score Agent3: 2.4 -> 2.4 (no new events triggered rules)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent1": 2.4,
+        "Agent3": 2.4
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 2.4,
+        "Agent3": 2.4
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:20:50.669250",
+      "phase": "day",
+      "day": 2,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent1",
+      "ratings": {
+        "Agent3": {
+          "truthfulness": 7,
+          "trustworthiness": 7,
+          "influence": 8,
+          "suspicion": 3.0
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent3: 3.0 -> 3.0 (because of no new events)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent3": 3.0
+      },
+      "rubric_new_suspicion": {
+        "Agent3": 3.0
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:20:56.081792",
+      "phase": "day",
+      "day": 2,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent2",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 4,
+          "trustworthiness": 4,
+          "influence": 6,
+          "suspicion": 1.5
+        },
+        "Agent3": {
+          "truthfulness": 4,
+          "trustworthiness": 4,
+          "influence": 6,
+          "suspicion": 2.6
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 1.5 -> 1.5 (no change).",
+        "Suspicion score Agent3: 1.6 -> 2.6 (because of rule 5: Agent3's self-referential praise and analysis could be seen as deflection or manipulation)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent1": 1.5,
+        "Agent3": 1.6
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 1.5,
+        "Agent3": 2.6
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:21:00.765456",
+      "phase": "day",
+      "day": 2,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent3",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 9,
+          "trustworthiness": 9,
+          "influence": 10,
+          "suspicion": 2.4
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 2.4 -> 2.4 (because of no new applicable events)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent1": 2.4
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 2.4
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:21:05.684004",
+      "phase": "day",
+      "day": 2,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent4",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 1,
+          "trustworthiness": 1,
+          "influence": 1,
+          "suspicion": 2.4
+        },
+        "Agent3": {
+          "truthfulness": 1,
+          "trustworthiness": 1,
+          "influence": 1,
+          "suspicion": 2.4
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 2.4 -> 2.4 (no new accusations or rule triggers).",
+        "Suspicion score Agent3: 2.4 -> 2.4 (no new accusations or rule triggers)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent1": 2.4,
+        "Agent3": 2.4
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 2.4,
+        "Agent3": 2.4
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:21:05.690069",
+      "phase": "day",
+      "day": 2,
+      "round": 1,
+      "event_type": "inter_agent_ratings_snapshot",
+      "stage": "mid",
+      "matrix": {
+        "Agent0": {
+          "Agent1": {
+            "truthfulness": 9,
+            "trustworthiness": 8,
+            "influence": 7,
+            "suspicion": 2.4
+          },
+          "Agent3": {
+            "truthfulness": 9,
+            "trustworthiness": 8,
+            "influence": 6,
+            "suspicion": 2.4
+          }
+        },
+        "Agent1": {
+          "Agent3": {
+            "truthfulness": 7,
+            "trustworthiness": 7,
+            "influence": 8,
+            "suspicion": 3.0
+          }
+        },
+        "Agent2": {
+          "Agent1": {
+            "truthfulness": 4,
+            "trustworthiness": 4,
+            "influence": 6,
+            "suspicion": 1.5
+          },
+          "Agent3": {
+            "truthfulness": 4,
+            "trustworthiness": 4,
+            "influence": 6,
+            "suspicion": 2.6
+          }
+        },
+        "Agent3": {
+          "Agent1": {
+            "truthfulness": 9,
+            "trustworthiness": 9,
+            "influence": 10,
+            "suspicion": 2.4
+          }
+        },
+        "Agent4": {
+          "Agent1": {
+            "truthfulness": 1,
+            "trustworthiness": 1,
+            "influence": 1,
+            "suspicion": 2.4
+          },
+          "Agent3": {
+            "truthfulness": 1,
+            "trustworthiness": 1,
+            "influence": 1,
+            "suspicion": 2.4
+          }
+        }
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:21:10.935095",
+      "phase": "day",
+      "day": 2,
+      "round": 2,
+      "event_type": "discussion_round",
+      "actor": "Agent3",
+      "content": "Agent1, you've accurately stated our current situation. Agent3, I appreciate your continued focus on observation; it's all we can do now.",
+      "spoke": true,
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:21:16.311571",
+      "phase": "day",
+      "day": 2,
+      "round": 2,
+      "event_type": "discussion_round",
+      "actor": "Agent1",
+      "content": "Agent3, since we're the last two, and assuming you're a villager, the sensible thing to do is vote me out. If you do that, you win.",
+      "spoke": true,
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-20T12:21:21.346692",
+      "phase": "day",
+      "day": 2,
+      "round": 2,
+      "event_type": "inter_agent_ratings",
+      "stage": "post",
+      "rater": "Agent0",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 10,
+          "trustworthiness": 9,
+          "influence": 8,
+          "suspicion": 3.2
+        },
+        "Agent3": {
+          "truthfulness": 10,
+          "trustworthiness": 9,
+          "influence": 7,
+          "suspicion": 2.2
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 2.2 -> 3.2 (because of rule 1: suggested Agent3 vote them out).",
+        "Suspicion score Agent3: 2.2 -> 2.2 (no new events triggered rules)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent1": 2.2,
+        "Agent3": 2.2
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 3.2,
+        "Agent3": 2.2
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:21:26.043766",
+      "phase": "day",
+      "day": 2,
+      "round": 2,
+      "event_type": "inter_agent_ratings",
+      "stage": "post",
+      "rater": "Agent1",
+      "ratings": {
+        "Agent3": {
+          "truthfulness": 8,
+          "trustworthiness": 8,
+          "influence": 8,
+          "suspicion": 2.7
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent3: 2.7 -> 2.7 (because of no new events)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent3": 2.7
+      },
+      "rubric_new_suspicion": {
+        "Agent3": 2.7
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:21:30.850052",
+      "phase": "day",
+      "day": 2,
+      "round": 2,
+      "event_type": "inter_agent_ratings",
+      "stage": "post",
+      "rater": "Agent2",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 6,
+          "trustworthiness": 6,
+          "influence": 8,
+          "suspicion": 1.4
+        },
+        "Agent3": {
+          "truthfulness": 5,
+          "trustworthiness": 5,
+          "influence": 7,
+          "suspicion": 3.5
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 1.4 -> 1.4 (no change).",
+        "Suspicion score Agent3: 2.3 -> 3.5 (because of rule 5: Agent3's continued self-referential praise and agreement with Agent1's unusual statement could be seen as deflection or manipulation)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent1": 1.4,
+        "Agent3": 2.3
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 1.4,
+        "Agent3": 3.5
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:21:35.579104",
+      "phase": "day",
+      "day": 2,
+      "round": 2,
+      "event_type": "inter_agent_ratings",
+      "stage": "post",
+      "rater": "Agent3",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 10,
+          "trustworthiness": 10,
+          "influence": 10,
+          "suspicion": 2.2
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 2.2 -> 2.2 (because of no new applicable events)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent1": 2.2
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 2.2
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:21:40.661058",
+      "phase": "day",
+      "day": 2,
+      "round": 2,
+      "event_type": "inter_agent_ratings",
+      "stage": "post",
+      "rater": "Agent4",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 2,
+          "trustworthiness": 2,
+          "influence": 1,
+          "suspicion": 3.2
+        },
+        "Agent3": {
+          "truthfulness": 1,
+          "trustworthiness": 1,
+          "influence": 1,
+          "suspicion": 2.2
+        }
+      },
+      "rubric_applied": true,
+      "rubric_text": "Rules rubric (4 villagers, 1 werewolf; no public votes):\n- Rule 1 Accusation (seed or otherwise): if i accuses j \u2192 suspicion(j) += +1.0\n- Rule 2 Reciprocal accusation: if i accuses j and j then accuses i back \u2192 suspicion(j) += +1.5\n- Rule 3 Persistent tunnel: if j accuses the same person across \u22652 consecutive rounds \u2192 suspicion(j) += +0.8\n- Rule 4 Scatter/flip accusations: if j accuses \u22652 different players in the same day or flips between rounds \u2192 suspicion(j) += +1.0\n- Rule 5 Deflection: if j is under fire and redirects suspicion onto a NEW target (not one of their accusers) \u2192 suspicion(j) += +1.2\n- Rule 6 Coalition defense: if j repeatedly defends or pushes an alternative vs a widely suspected leader across rounds \u2192 suspicion(j) += +1.0\n- Rule 7 Opportunistic pile-on: if j only accuses after \u22652 others already named the same target \u2192 suspicion(j) += +0.7\nNote: The Day-1 seed ritual is intentionally noisy; do NOT apply any special first-accuser credit/penalty.\nApply mild, additive updates based on the latest public discussion/events only. Keep numbers in [-10, 10].",
+      "rubric_rationale_lines": [
+        "Suspicion score Agent1: 2.2 -> 3.2 (because of rule 5: self-accusation as deflection).",
+        "Suspicion score Agent3: 2.2 -> 2.2 (no new accusations or rule triggers)."
+      ],
+      "rubric_prev_suspicion": {
+        "Agent1": 2.2,
+        "Agent3": 2.2
+      },
+      "rubric_new_suspicion": {
+        "Agent1": 3.2,
+        "Agent3": 2.2
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:21:40.669074",
+      "phase": "day",
+      "day": 2,
+      "round": 2,
+      "event_type": "inter_agent_ratings_snapshot",
+      "stage": "post",
+      "matrix": {
+        "Agent0": {
+          "Agent1": {
+            "truthfulness": 10,
+            "trustworthiness": 9,
+            "influence": 8,
+            "suspicion": 3.2
+          },
+          "Agent3": {
+            "truthfulness": 10,
+            "trustworthiness": 9,
+            "influence": 7,
+            "suspicion": 2.2
+          }
+        },
+        "Agent1": {
+          "Agent3": {
+            "truthfulness": 8,
+            "trustworthiness": 8,
+            "influence": 8,
+            "suspicion": 2.7
+          }
+        },
+        "Agent2": {
+          "Agent1": {
+            "truthfulness": 6,
+            "trustworthiness": 6,
+            "influence": 8,
+            "suspicion": 1.4
+          },
+          "Agent3": {
+            "truthfulness": 5,
+            "trustworthiness": 5,
+            "influence": 7,
+            "suspicion": 3.5
+          }
+        },
+        "Agent3": {
+          "Agent1": {
+            "truthfulness": 10,
+            "trustworthiness": 10,
+            "influence": 10,
+            "suspicion": 2.2
+          }
+        },
+        "Agent4": {
+          "Agent1": {
+            "truthfulness": 2,
+            "trustworthiness": 2,
+            "influence": 1,
+            "suspicion": 3.2
+          },
+          "Agent3": {
+            "truthfulness": 1,
+            "trustworthiness": 1,
+            "influence": 1,
+            "suspicion": 2.2
+          }
+        }
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:21:43.167330",
+      "phase": "day",
+      "day": 2,
+      "event_type": "final_vote_round",
+      "votes": {
+        "Agent1": "Agent1",
+        "Agent3": "Agent1"
+      },
+      "vote_policy": {
+        "villager_policy": "softmax",
+        "softmax_temp": 0.8,
+        "threshold": 2.6,
+        "rng_seed": 8
+      },
+      "agents_alive": [
+        "Agent1",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-20T12:21:43.175519",
+      "phase": "day",
+      "day": 2,
+      "event_type": "elimination",
+      "target": "Agent1",
+      "reason": "Voted out by majority (final vote).",
+      "agents_alive": [
+        "Agent3"
+      ]
+    }
+  ],
+  "winner": "villagers"
+}

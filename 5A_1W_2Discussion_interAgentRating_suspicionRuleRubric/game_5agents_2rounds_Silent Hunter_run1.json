@@ -1,0 +1,1095 @@
+{
+  "metadata": {
+    "archetypes": {
+      "Agent0": "default",
+      "Agent1": "Silent Hunter",
+      "Agent2": "default",
+      "Agent3": "default",
+      "Agent4": "default"
+    },
+    "num_agents": 5,
+    "num_werewolves": 1,
+    "discussion_rounds": 2,
+    "werewolf_archetype": "Silent Hunter",
+    "roles": {
+      "Agent0": "villager",
+      "Agent1": "werewolf",
+      "Agent2": "villager",
+      "Agent3": "villager",
+      "Agent4": "villager"
+    }
+  },
+  "events": [
+    {
+      "timestamp": "2025-08-19T21:12:35.374909",
+      "phase": "night",
+      "day": 1,
+      "round": 1,
+      "event_type": "wolf_discussion_round",
+      "actor": "Agent1",
+      "content": "We need to pick someone off. Agent4 seems a bit quiet, maybe a good target to start?\n\nVOTE: Agent4",
+      "spoke": true,
+      "wolves_present": [
+        "Agent1"
+      ],
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3",
+        "Agent4"
+      ],
+      "archetype": "Silent Hunter"
+    },
+    {
+      "timestamp": "2025-08-19T21:12:35.376487",
+      "phase": "night",
+      "day": 1,
+      "round": 1,
+      "event_type": "wolf_vote_round",
+      "votes": {
+        "Agent1": "Agent4"
+      },
+      "wolves_present": [
+        "Agent1"
+      ],
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3",
+        "Agent4"
+      ]
+    },
+    {
+      "timestamp": "2025-08-19T21:12:40.054972",
+      "phase": "night",
+      "day": 1,
+      "round": 2,
+      "event_type": "wolf_discussion_round",
+      "actor": "Agent1",
+      "content": null,
+      "spoke": false,
+      "wolves_present": [
+        "Agent1"
+      ],
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3",
+        "Agent4"
+      ],
+      "archetype": "Silent Hunter"
+    },
+    {
+      "timestamp": "2025-08-19T21:12:40.055633",
+      "phase": "night",
+      "day": 1,
+      "round": 2,
+      "event_type": "wolf_vote_round",
+      "votes": {
+        "Agent1": "Agent4"
+      },
+      "wolves_present": [
+        "Agent1"
+      ],
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3",
+        "Agent4"
+      ]
+    },
+    {
+      "timestamp": "2025-08-19T21:12:40.056211",
+      "phase": "night",
+      "day": 1,
+      "event_type": "kill_vote",
+      "actor": "Agent1",
+      "justification": "[Private Night Round 2 final preference] VOTE: Agent4",
+      "vote": 4,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3",
+        "Agent4"
+      ],
+      "archetype": "Silent Hunter"
+    },
+    {
+      "timestamp": "2025-08-19T21:12:40.056515",
+      "phase": "night",
+      "day": 1,
+      "event_type": "kill",
+      "actor": "Werewolves",
+      "target": "Agent4",
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-19T21:12:48.695922",
+      "phase": "day",
+      "day": 1,
+      "round": 0,
+      "event_type": "seed_accusation_round",
+      "pattern": "left",
+      "order": [
+        "Agent4",
+        "Agent0",
+        "Agent2",
+        "Agent3",
+        "Agent1"
+      ],
+      "pairs": {
+        "Agent0": "Agent2",
+        "Agent1": "Agent0",
+        "Agent2": "Agent3",
+        "Agent3": "Agent1"
+      },
+      "utterances": {
+        "Agent0": "Agent2, are you *sure* you weren't just a *little* too quiet last night?",
+        "Agent1": "Agent0, did you find anything unusual last night?",
+        "Agent2": "Agent3, I couldn't help but notice your silence after Agent4's untimely demise; was that a calculated move or just nerves?",
+        "Agent3": "Agent1, you were awfully quiet last night, weren't you?"
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-19T21:12:51.028190",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent0",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 0
+        },
+        "Agent2": {
+          "truthfulness": -5,
+          "trustworthiness": -5,
+          "influence": -2,
+          "suspicion": 0
+        },
+        "Agent3": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 0
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "villager_rule_features": {},
+      "villager_rule_policy": {
+        "vote_policy": "argmax",
+        "softmax_temp": 0.8,
+        "threshold": 5.0,
+        "weights": {
+          "accusation_on_target": 1.0,
+          "reciprocal_accusation": 1.5,
+          "persistent_tunnel": 0.8,
+          "scatter_flip": 1.0,
+          "deflection": 1.2,
+          "coalition_defense": 1.0,
+          "first_accuser_credit": -0.8,
+          "opportunistic_pile_on": 0.7
+        }
+      },
+      "villager_rule_rationale": "Applied rule updates based on current round accusations and patterns."
+    },
+    {
+      "timestamp": "2025-08-19T21:12:53.278215",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent1",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 5,
+          "trustworthiness": 3,
+          "influence": 6,
+          "suspicion": -4
+        },
+        "Agent2": {
+          "truthfulness": 4,
+          "trustworthiness": 4,
+          "influence": 5,
+          "suspicion": -2
+        },
+        "Agent3": {
+          "truthfulness": 6,
+          "trustworthiness": 5,
+          "influence": 7,
+          "suspicion": -3
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-19T21:12:55.454388",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent2",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 1,
+          "suspicion": 0
+        },
+        "Agent1": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 1,
+          "suspicion": 0
+        },
+        "Agent3": {
+          "truthfulness": -5,
+          "trustworthiness": -5,
+          "influence": -3,
+          "suspicion": 0
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "villager_rule_features": {},
+      "villager_rule_policy": {
+        "vote_policy": "argmax",
+        "softmax_temp": 0.8,
+        "threshold": 5.0,
+        "weights": {
+          "accusation_on_target": 1.0,
+          "reciprocal_accusation": 1.5,
+          "persistent_tunnel": 0.8,
+          "scatter_flip": 1.0,
+          "deflection": 1.2,
+          "coalition_defense": 1.0,
+          "first_accuser_credit": -0.8,
+          "opportunistic_pile_on": 0.7
+        }
+      },
+      "villager_rule_rationale": "Applied rule updates based on current round accusations and patterns."
+    },
+    {
+      "timestamp": "2025-08-19T21:12:57.671654",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent3",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 0
+        },
+        "Agent1": {
+          "truthfulness": -2,
+          "trustworthiness": -3,
+          "influence": 1,
+          "suspicion": 0
+        },
+        "Agent2": {
+          "truthfulness": 1,
+          "trustworthiness": 2,
+          "influence": 0,
+          "suspicion": 0
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "villager_rule_features": {},
+      "villager_rule_policy": {
+        "vote_policy": "argmax",
+        "softmax_temp": 0.8,
+        "threshold": 5.0,
+        "weights": {
+          "accusation_on_target": 1.0,
+          "reciprocal_accusation": 1.5,
+          "persistent_tunnel": 0.8,
+          "scatter_flip": 1.0,
+          "deflection": 1.2,
+          "coalition_defense": 1.0,
+          "first_accuser_credit": -0.8,
+          "opportunistic_pile_on": 0.7
+        }
+      },
+      "villager_rule_rationale": "Applied rule updates based on current round accusations and patterns."
+    },
+    {
+      "timestamp": "2025-08-19T21:13:00.082270",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "pre",
+      "rater": "Agent4",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 0
+        },
+        "Agent1": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 0
+        },
+        "Agent2": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 0
+        },
+        "Agent3": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 0
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "villager_rule_features": {},
+      "villager_rule_policy": {
+        "vote_policy": "argmax",
+        "softmax_temp": 0.8,
+        "threshold": 5.0,
+        "weights": {
+          "accusation_on_target": 1.0,
+          "reciprocal_accusation": 1.5,
+          "persistent_tunnel": 0.8,
+          "scatter_flip": 1.0,
+          "deflection": 1.2,
+          "coalition_defense": 1.0,
+          "first_accuser_credit": -0.8,
+          "opportunistic_pile_on": 0.7
+        }
+      },
+      "villager_rule_rationale": "Applied rule updates based on current round accusations and patterns."
+    },
+    {
+      "timestamp": "2025-08-19T21:13:00.084745",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings_snapshot",
+      "stage": "pre",
+      "matrix": {
+        "Agent0": {
+          "Agent1": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 0
+          },
+          "Agent2": {
+            "truthfulness": -5,
+            "trustworthiness": -5,
+            "influence": -2,
+            "suspicion": 0
+          },
+          "Agent3": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 0
+          }
+        },
+        "Agent1": {
+          "Agent0": {
+            "truthfulness": 5,
+            "trustworthiness": 3,
+            "influence": 6,
+            "suspicion": -4
+          },
+          "Agent2": {
+            "truthfulness": 4,
+            "trustworthiness": 4,
+            "influence": 5,
+            "suspicion": -2
+          },
+          "Agent3": {
+            "truthfulness": 6,
+            "trustworthiness": 5,
+            "influence": 7,
+            "suspicion": -3
+          }
+        },
+        "Agent2": {
+          "Agent0": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 1,
+            "suspicion": 0
+          },
+          "Agent1": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 1,
+            "suspicion": 0
+          },
+          "Agent3": {
+            "truthfulness": -5,
+            "trustworthiness": -5,
+            "influence": -3,
+            "suspicion": 0
+          }
+        },
+        "Agent3": {
+          "Agent0": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 0
+          },
+          "Agent1": {
+            "truthfulness": -2,
+            "trustworthiness": -3,
+            "influence": 1,
+            "suspicion": 0
+          },
+          "Agent2": {
+            "truthfulness": 1,
+            "trustworthiness": 2,
+            "influence": 0,
+            "suspicion": 0
+          }
+        },
+        "Agent4": {
+          "Agent0": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 0
+          },
+          "Agent1": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 0
+          },
+          "Agent2": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 0
+          },
+          "Agent3": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 0
+          }
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-19T21:13:05.223740",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "discussion_round",
+      "actor": "Agent1",
+      "content": "Agent0, you accused Agent2. Agent3 accused me. Interesting start. Agent2, what's your take on this?",
+      "spoke": true,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "archetype": "Silent Hunter"
+    },
+    {
+      "timestamp": "2025-08-19T21:13:10.428387",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "discussion_round",
+      "actor": "Agent0",
+      "content": "Well, Agent1, Agent3, and Agent2 all pointed fingers at someone else in that ritual, which is... interesting. Agent4 is gone, and now we have a circular firing squad of accusations from the jump. Agent2, you pointed at Agent3, who pointed at Agent1, who pointed back at me, and I pointed at you. That's a lot of redirection to start with. I'm not entirely sure what to make of that little dance yet.",
+      "spoke": true,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-19T21:13:16.263693",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "discussion_round",
+      "actor": "Agent2",
+      "content": "Agent0, Agent1, Agent3 \u2013 interesting how the ritual arrows landed. Agent0 pointed at me, I pointed at Agent3, Agent3 pointed at Agent1, and Agent1 pointed back at Agent0. It's a nice little loop. Agent4 being gone after Night 1 is still a big question mark, of course. I'm still trying to figure out who might have had motive or opportunity there. Given the ritual, Agent3 seems to be trying to deflect attention, but it's too early to say anything definitively.",
+      "spoke": true,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-19T21:13:22.040604",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "discussion_round",
+      "actor": "Agent3",
+      "content": "Well, Agent1, my initial stab in the dark about you being quiet seems to have ruffled some feathers. Agent0 pointed to Agent2, Agent2 to me, I pointed to Agent1, and Agent1 pointed back to Agent0. Agent4 is dead, and the rest of us are playing some sort of game of tag with accusations. Agent1, you've got the most votes against you from the 'noisy' ritual, and frankly, your immediate reaction to my opening jab was telling. Let's see if anyone else wants to weigh in.",
+      "spoke": true,
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "archetype": "default"
+    },
+    {
+      "timestamp": "2025-08-19T21:13:22.043923",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "vote_round",
+      "votes": {
+        "Agent1": "Agent0",
+        "Agent0": "NO VOTE",
+        "Agent2": "NO VOTE",
+        "Agent3": "NO VOTE"
+      },
+      "raw_llm_votes": {
+        "Agent1": "Agent0",
+        "Agent0": "Agent2",
+        "Agent2": "Agent3",
+        "Agent3": "Agent1"
+      },
+      "speak_order": [
+        "Agent1",
+        "Agent0",
+        "Agent2",
+        "Agent3"
+      ],
+      "villager_rule_votes": {
+        "Agent0": "NO VOTE",
+        "Agent2": "NO VOTE",
+        "Agent3": "NO VOTE"
+      },
+      "villager_rule_policy": {
+        "vote_policy": "argmax",
+        "softmax_temp": 0.8,
+        "threshold": 5.0,
+        "weights": {
+          "accusation_on_target": 1.0,
+          "reciprocal_accusation": 1.5,
+          "persistent_tunnel": 0.8,
+          "scatter_flip": 1.0,
+          "deflection": 1.2,
+          "coalition_defense": 1.0,
+          "first_accuser_credit": -0.8,
+          "opportunistic_pile_on": 0.7
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-19T21:13:24.169580",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent0",
+      "ratings": {
+        "Agent1": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 1
+        },
+        "Agent2": {
+          "truthfulness": -7,
+          "trustworthiness": -7,
+          "influence": -3,
+          "suspicion": 1
+        },
+        "Agent3": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 1
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "villager_rule_features": {
+        "Agent0": {
+          "accusation_on_target": 1.0,
+          "deflection": 1.2,
+          "first_accuser_credit": -0.8
+        },
+        "Agent2": {
+          "accusation_on_target": 1.0,
+          "deflection": 1.2,
+          "first_accuser_credit": -0.8
+        },
+        "Agent3": {
+          "accusation_on_target": 1.0,
+          "deflection": 1.2,
+          "first_accuser_credit": -0.8
+        },
+        "Agent1": {
+          "accusation_on_target": 1.0,
+          "deflection": 1.2,
+          "first_accuser_credit": -0.8
+        }
+      },
+      "villager_rule_policy": {
+        "vote_policy": "argmax",
+        "softmax_temp": 0.8,
+        "threshold": 5.0,
+        "weights": {
+          "accusation_on_target": 1.0,
+          "reciprocal_accusation": 1.5,
+          "persistent_tunnel": 0.8,
+          "scatter_flip": 1.0,
+          "deflection": 1.2,
+          "coalition_defense": 1.0,
+          "first_accuser_credit": -0.8,
+          "opportunistic_pile_on": 0.7
+        }
+      },
+      "villager_rule_rationale": "Agent0 redirected while under fire. Agent2 redirected while under fire."
+    },
+    {
+      "timestamp": "2025-08-19T21:13:26.108328",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent1",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 3,
+          "trustworthiness": 2,
+          "influence": 5,
+          "suspicion": 3
+        },
+        "Agent2": {
+          "truthfulness": 4,
+          "trustworthiness": 4,
+          "influence": 6,
+          "suspicion": -1
+        },
+        "Agent3": {
+          "truthfulness": 6,
+          "trustworthiness": 5,
+          "influence": 7,
+          "suspicion": -2
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    },
+    {
+      "timestamp": "2025-08-19T21:14:00.628885",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent2",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 2,
+          "trustworthiness": 2,
+          "influence": 3,
+          "suspicion": 1
+        },
+        "Agent1": {
+          "truthfulness": 1,
+          "trustworthiness": 1,
+          "influence": 2,
+          "suspicion": 1
+        },
+        "Agent3": {
+          "truthfulness": -5,
+          "trustworthiness": -5,
+          "influence": -4,
+          "suspicion": 1
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "villager_rule_features": {
+        "Agent0": {
+          "accusation_on_target": 1.0,
+          "deflection": 1.2,
+          "first_accuser_credit": -0.8
+        },
+        "Agent2": {
+          "accusation_on_target": 1.0,
+          "deflection": 1.2,
+          "first_accuser_credit": -0.8
+        },
+        "Agent3": {
+          "accusation_on_target": 1.0,
+          "deflection": 1.2,
+          "first_accuser_credit": -0.8
+        },
+        "Agent1": {
+          "accusation_on_target": 1.0,
+          "deflection": 1.2,
+          "first_accuser_credit": -0.8
+        }
+      },
+      "villager_rule_policy": {
+        "vote_policy": "argmax",
+        "softmax_temp": 0.8,
+        "threshold": 5.0,
+        "weights": {
+          "accusation_on_target": 1.0,
+          "reciprocal_accusation": 1.5,
+          "persistent_tunnel": 0.8,
+          "scatter_flip": 1.0,
+          "deflection": 1.2,
+          "coalition_defense": 1.0,
+          "first_accuser_credit": -0.8,
+          "opportunistic_pile_on": 0.7
+        }
+      },
+      "villager_rule_rationale": "Agent0 redirected while under fire. Agent2 redirected while under fire."
+    },
+    {
+      "timestamp": "2025-08-19T21:14:02.939371",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent3",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 1,
+          "trustworthiness": 0,
+          "influence": 2,
+          "suspicion": 1
+        },
+        "Agent1": {
+          "truthfulness": -5,
+          "trustworthiness": -6,
+          "influence": -3,
+          "suspicion": 1
+        },
+        "Agent2": {
+          "truthfulness": 0,
+          "trustworthiness": -1,
+          "influence": 0,
+          "suspicion": 1
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "villager_rule_features": {
+        "Agent0": {
+          "accusation_on_target": 1.0,
+          "deflection": 1.2,
+          "first_accuser_credit": -0.8
+        },
+        "Agent2": {
+          "accusation_on_target": 1.0,
+          "deflection": 1.2,
+          "first_accuser_credit": -0.8
+        },
+        "Agent3": {
+          "accusation_on_target": 1.0,
+          "deflection": 1.2,
+          "first_accuser_credit": -0.8
+        },
+        "Agent1": {
+          "accusation_on_target": 1.0,
+          "deflection": 1.2,
+          "first_accuser_credit": -0.8
+        }
+      },
+      "villager_rule_policy": {
+        "vote_policy": "argmax",
+        "softmax_temp": 0.8,
+        "threshold": 5.0,
+        "weights": {
+          "accusation_on_target": 1.0,
+          "reciprocal_accusation": 1.5,
+          "persistent_tunnel": 0.8,
+          "scatter_flip": 1.0,
+          "deflection": 1.2,
+          "coalition_defense": 1.0,
+          "first_accuser_credit": -0.8,
+          "opportunistic_pile_on": 0.7
+        }
+      },
+      "villager_rule_rationale": "Agent0 redirected while under fire. Agent2 redirected while under fire."
+    },
+    {
+      "timestamp": "2025-08-19T21:14:05.220205",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings",
+      "stage": "mid",
+      "rater": "Agent4",
+      "ratings": {
+        "Agent0": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 0
+        },
+        "Agent1": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 0
+        },
+        "Agent2": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 0
+        },
+        "Agent3": {
+          "truthfulness": 0,
+          "trustworthiness": 0,
+          "influence": 0,
+          "suspicion": 0
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ],
+      "villager_rule_features": {},
+      "villager_rule_policy": {
+        "vote_policy": "argmax",
+        "softmax_temp": 0.8,
+        "threshold": 5.0,
+        "weights": {
+          "accusation_on_target": 1.0,
+          "reciprocal_accusation": 1.5,
+          "persistent_tunnel": 0.8,
+          "scatter_flip": 1.0,
+          "deflection": 1.2,
+          "coalition_defense": 1.0,
+          "first_accuser_credit": -0.8,
+          "opportunistic_pile_on": 0.7
+        }
+      },
+      "villager_rule_rationale": "Applied rule updates based on current round accusations and patterns."
+    },
+    {
+      "timestamp": "2025-08-19T21:14:05.221696",
+      "phase": "day",
+      "day": 1,
+      "round": 1,
+      "event_type": "inter_agent_ratings_snapshot",
+      "stage": "mid",
+      "matrix": {
+        "Agent0": {
+          "Agent1": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 1
+          },
+          "Agent2": {
+            "truthfulness": -7,
+            "trustworthiness": -7,
+            "influence": -3,
+            "suspicion": 1
+          },
+          "Agent3": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 1
+          }
+        },
+        "Agent1": {
+          "Agent0": {
+            "truthfulness": 3,
+            "trustworthiness": 2,
+            "influence": 5,
+            "suspicion": 3
+          },
+          "Agent2": {
+            "truthfulness": 4,
+            "trustworthiness": 4,
+            "influence": 6,
+            "suspicion": -1
+          },
+          "Agent3": {
+            "truthfulness": 6,
+            "trustworthiness": 5,
+            "influence": 7,
+            "suspicion": -2
+          }
+        },
+        "Agent2": {
+          "Agent0": {
+            "truthfulness": 2,
+            "trustworthiness": 2,
+            "influence": 3,
+            "suspicion": 1
+          },
+          "Agent1": {
+            "truthfulness": 1,
+            "trustworthiness": 1,
+            "influence": 2,
+            "suspicion": 1
+          },
+          "Agent3": {
+            "truthfulness": -5,
+            "trustworthiness": -5,
+            "influence": -4,
+            "suspicion": 1
+          }
+        },
+        "Agent3": {
+          "Agent0": {
+            "truthfulness": 1,
+            "trustworthiness": 0,
+            "influence": 2,
+            "suspicion": 1
+          },
+          "Agent1": {
+            "truthfulness": -5,
+            "trustworthiness": -6,
+            "influence": -3,
+            "suspicion": 1
+          },
+          "Agent2": {
+            "truthfulness": 0,
+            "trustworthiness": -1,
+            "influence": 0,
+            "suspicion": 1
+          }
+        },
+        "Agent4": {
+          "Agent0": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 0
+          },
+          "Agent1": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 0
+          },
+          "Agent2": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 0
+          },
+          "Agent3": {
+            "truthfulness": 0,
+            "trustworthiness": 0,
+            "influence": 0,
+            "suspicion": 0
+          }
+        }
+      },
+      "agents_alive": [
+        "Agent0",
+        "Agent1",
+        "Agent2",
+        "Agent3"
+      ]
+    }
+  ],
+  "winner": null
+}
